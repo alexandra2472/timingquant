@@ -5,6 +5,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // 禁用Cloudflare的自动部署
+  trailingSlash: true,
 }
 
 module.exports = nextConfig
