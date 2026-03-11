@@ -1,6 +1,6 @@
 {
   "build": {
-    "command": "rm -f package-lock.json && npm install && npm run build",
+    "command": "npm cache clean --force && npm install --no-package-lock && npm run build",
     "cwd": ".",
     "watch_dir": "."
   },

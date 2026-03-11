@@ -3,3 +3,9 @@ out/
 .next/
 .DS_Store
 *.log
+push*.js
+check-*.js
+commit-push.js
+fix-remote.js
+*.bat
+
