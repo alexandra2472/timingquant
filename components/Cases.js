@@ -50,7 +50,8 @@ const caseData = [
 
 export default function Cases({ t }) {
   const [currentIndexes, setCurrentIndexes] = useState([0, 0, 0]);
-  const [slideDirections, setSlideDirections] = useState([null, null, null]);
+  const [prevIndexes, setPrevIndexes] = useState([0, 0, 0]);
+  const [isAnimating, setIsAnimating] = useState([false, false, false]);
   const AUTO_PLAY_INTERVAL = 4000; // 自动轮播间隔时间（毫秒）
 
   // 自动轮播效果
@@ -62,31 +63,33 @@ export default function Cases({ t }) {
           return (currentIndex + 1) % caseItem.images.length;
         })
       );
-      setSlideDirections(['left', 'left', 'left']); // 设置滑动方向
-      setTimeout(() => setSlideDirections([null, null, null]), 300); // 重置滑动方向
     }, AUTO_PLAY_INTERVAL);
 
     return () => clearInterval(interval);
   }, []);
 
-  const goToSlide = (caseIndex, slideIndex, direction) => {
-    setSlideDirections((prev) => {
-      const newDirections = [...prev];
-      newDirections[caseIndex] = direction;
-      return newDirections;
+  // 监听索引变化，触发动画
+  useEffect(() => {
+    const newAnimating = currentIndexes.map((newIndex, caseIndex) => {
+      return newIndex !== prevIndexes[caseIndex];
     });
+    setIsAnimating(newAnimating);
+    setPrevIndexes(currentIndexes);
+
+    // 动画结束后重置
+    const timer = setTimeout(() => {
+      setIsAnimating([false, false, false]);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [currentIndexes]);
+
+  const goToSlide = (caseIndex, slideIndex) => {
     setCurrentIndexes((prev) => {
       const newIndexes = [...prev];
       newIndexes[caseIndex] = slideIndex;
       return newIndexes;
     });
-    setTimeout(() => {
-      setSlideDirections((prev) => {
-        const newDirections = [...prev];
-        newDirections[caseIndex] = null;
-        return newDirections;
-      });
-    }, 300);
   };
 
   const goToPrev = (caseIndex, e) => {
@@ -95,8 +98,7 @@ export default function Cases({ t }) {
     const caseItem = caseData[caseIndex];
     goToSlide(
       caseIndex,
-      (currentIndexes[caseIndex] - 1 + caseItem.images.length) % caseItem.images.length,
-      'right'
+      (currentIndexes[caseIndex] - 1 + caseItem.images.length) % caseItem.images.length
     );
   };
 
@@ -104,7 +106,7 @@ export default function Cases({ t }) {
     e.preventDefault();
     e.stopPropagation();
     const caseItem = caseData[caseIndex];
-    goToSlide(caseIndex, (currentIndexes[caseIndex] + 1) % caseItem.images.length, 'left');
+    goToSlide(caseIndex, (currentIndexes[caseIndex] + 1) % caseItem.images.length);
   };
 
   return (
@@ -125,17 +127,22 @@ export default function Cases({ t }) {
             >
               {/* 轮播图区域 */}
               <div className="relative h-48 bg-gray-200 overflow-hidden">
+                {/* 当前图片 */}
                 <img
                   src={item.images[currentIndexes[caseIndex]]}
                   alt={`${t.cases.items[caseIndex]?.title || `案例${caseIndex + 1}`} - 图${currentIndexes[caseIndex] + 1}`}
-                  className={`w-full h-full object-cover transition-transform duration-300 ease-in-out ${
-                    slideDirections[caseIndex] === 'left'
-                      ? '-translate-x-full'
-                      : slideDirections[caseIndex] === 'right'
-                      ? 'translate-x-full'
-                      : ''
+                  className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-300 ${
+                    isAnimating[caseIndex] ? 'opacity-0' : 'opacity-100'
                   }`}
                 />
+                {/* 上一张图片（用于过渡效果） */}
+                {isAnimating[caseIndex] && (
+                  <img
+                    src={item.images[prevIndexes[caseIndex]]}
+                    alt={`${t.cases.items[caseIndex]?.title || `案例${caseIndex + 1}`} - 图${prevIndexes[caseIndex] + 1}`}
+                    className="w-full h-full object-cover absolute inset-0 transition-opacity duration-300 opacity-100"
+                  />
+                )}
 
                 {/* 左右箭头 */}
                 {item.images.length > 1 && (
@@ -166,8 +173,7 @@ export default function Cases({ t }) {
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
-                          const direction = slideIndex > currentIndexes[caseIndex] ? 'left' : 'right';
-                          goToSlide(caseIndex, slideIndex, direction);
+                          goToSlide(caseIndex, slideIndex);
                         }}
                         className={`w-2 h-2 rounded-full transition-colors ${
                           currentIndexes[caseIndex] === slideIndex
