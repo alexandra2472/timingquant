@@ -50,7 +50,6 @@ const caseData = [
 
 export default function Cases({ t }) {
   const [currentIndexes, setCurrentIndexes] = useState([0, 0, 0]);
-  const [prevIndexes, setPrevIndexes] = useState([0, 0, 0]);
   const [isAnimating, setIsAnimating] = useState([false, false, false]);
   const AUTO_PLAY_INTERVAL = 4000; // 自动轮播间隔时间（毫秒）
 
@@ -68,28 +67,29 @@ export default function Cases({ t }) {
     return () => clearInterval(interval);
   }, []);
 
-  // 监听索引变化，触发动画
-  useEffect(() => {
-    const newAnimating = currentIndexes.map((newIndex, caseIndex) => {
-      return newIndex !== prevIndexes[caseIndex];
-    });
-    setIsAnimating(newAnimating);
-    setPrevIndexes(currentIndexes);
-
-    // 动画结束后重置
-    const timer = setTimeout(() => {
-      setIsAnimating([false, false, false]);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, [currentIndexes]);
-
   const goToSlide = (caseIndex, slideIndex) => {
+    if (isAnimating[caseIndex]) return; // 动画中不允许切换
+
+    setIsAnimating((prev) => {
+      const newAnimating = [...prev];
+      newAnimating[caseIndex] = true;
+      return newAnimating;
+    });
+
     setCurrentIndexes((prev) => {
       const newIndexes = [...prev];
       newIndexes[caseIndex] = slideIndex;
       return newIndexes;
     });
+
+    // 动画结束后重置状态
+    setTimeout(() => {
+      setIsAnimating((prev) => {
+        const newAnimating = [...prev];
+        newAnimating[caseIndex] = false;
+        return newAnimating;
+      });
+    }, 300);
   };
 
   const goToPrev = (caseIndex, e) => {
@@ -127,22 +127,15 @@ export default function Cases({ t }) {
             >
               {/* 轮播图区域 */}
               <div className="relative h-48 bg-gray-200 overflow-hidden">
-                {/* 当前图片 */}
                 <img
                   src={item.images[currentIndexes[caseIndex]]}
                   alt={`${t.cases.items[caseIndex]?.title || `案例${caseIndex + 1}`} - 图${currentIndexes[caseIndex] + 1}`}
-                  className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-300 ${
-                    isAnimating[caseIndex] ? 'opacity-0' : 'opacity-100'
+                  className={`w-full h-full object-cover transition-all duration-300 ease-in-out ${
+                    isAnimating[caseIndex]
+                      ? 'opacity-0 scale-105 blur-sm'
+                      : 'opacity-100 scale-100 blur-0'
                   }`}
                 />
-                {/* 上一张图片（用于过渡效果） */}
-                {isAnimating[caseIndex] && (
-                  <img
-                    src={item.images[prevIndexes[caseIndex]]}
-                    alt={`${t.cases.items[caseIndex]?.title || `案例${caseIndex + 1}`} - 图${prevIndexes[caseIndex] + 1}`}
-                    className="w-full h-full object-cover absolute inset-0 transition-opacity duration-300 opacity-100"
-                  />
-                )}
 
                 {/* 左右箭头 */}
                 {item.images.length > 1 && (
