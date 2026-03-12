@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 // ==================== 案例数据配置区域 ====================
@@ -50,6 +50,21 @@ const caseData = [
 
 export default function Cases({ t }) {
   const [currentIndexes, setCurrentIndexes] = useState([0, 0, 0]);
+  const AUTO_PLAY_INTERVAL = 4000; // 自动轮播间隔时间（毫秒）
+
+  // 自动轮播效果
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndexes((prev) =>
+        prev.map((currentIndex, caseIndex) => {
+          const caseItem = caseData[caseIndex];
+          return (currentIndex + 1) % caseItem.images.length;
+        })
+      );
+    }, AUTO_PLAY_INTERVAL);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const goToSlide = (caseIndex, slideIndex) => {
     setCurrentIndexes((prev) => {
