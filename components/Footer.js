@@ -1,4 +1,4 @@
-import { MessageCircle, Send, MessageSquare, Video } from 'lucide-react';
+import { MessageCircle, Send, MessageSquare, Video, ExternalLink } from 'lucide-react';
 
 export default function Footer({ t }) {
   return (
@@ -51,7 +51,7 @@ export default function Footer({ t }) {
                 <a href="https://channels.weixin.qq.com/profile.html?page=1&scene=2&src=qr&weixinPublic号=GZH_SGYC" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900">视频号: 仙哥财经</a>
               </li>
               <li className="flex items-center space-x-2 text-gray-600">
-                <Twitter size={18} />
+                <ExternalLink size={18} />
                 <a href="https://x.com/Aurexian" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900">X: @Aurex仙哥</a>
               </li>
             </ul>
