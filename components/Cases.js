@@ -10,40 +10,46 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const caseData = [
   {
-    // 案例1: BTC周期预测
+    // 案例1: 六爻周期识别系统
     images: [
       'https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=600&h=400&fit=crop',
       'https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=600&h=400&fit=crop',
       'https://images.unsplash.com/photo-1642790106117-e829e14a795f?w=600&h=400&fit=crop',
     ],
     captions: [
-      'BTC周期分析图 - 通过易经六十四卦识别市场大周期顶部',
-      '链上数据验证 - 长期持有地址达到阶段性顶峰',
-      '顶部信号确认 - 多个指标同步发出风险预警',
+      '大周期顶底精准识别 - 2022年熊市底部提示、2023年顶部预警',
+      '月度结构段前瞻 - 每月初发布当月行情结构预判及关键时间节点',
+      '潜力品种爆发窗口 - 提前锁定尚处于低位且具备爆发条件的标的',
     ],
   },
   {
-    // 案例2: 全球市场结构分析
+    // 案例2: 量化交易策略系统
     images: [
       'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&h=400&fit=crop',
       'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1642104704074-907c0698cbd9?w=600&h=400&fit=crop',
     ],
     captions: [
-      '全球市场结构监测 - 提前识别多市场共振下的转折点',
-      '风险预警机制 - 在结构变化前发出预警信号',
+      '趋势型策略 - 4H/D周期捕捉大级别趋势，自动生成买卖信号',
+      '剥头皮短线策略 - 1-5分钟级别捕捉市场波动，积少成多',
+      '策略回测表现 - 过去12个月趋势策略收益率65%，胜率62%',
+      '多策略组合 - 趋势+剥头皮双策略互补，平滑收益波动',
     ],
   },
   {
-    // 案例3: 潜力交易机会
+    // 案例3: 社群风控赋能体系
     images: [
-      'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1642104704074-907c0698cbd9?w=600&h=400&fit=crop',
       'https://images.unsplash.com/photo-1639322537228-f710d846310a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1642790106117-e829e14a795f?w=600&h=400&fit=crop',
     ],
     captions: [
-      '潜力币种筛选 - 数据驱动发现尚未被市场充分定价的标的',
-      '入场时机信号 - 量化模型捕捉最佳买入点',
-      '收益目标与风险提示 - 完整的交易计划输出',
+      '执行力系统性训练 - 21天纪律养成计划，拒绝情绪化交易',
+      '结构段角色赋能 - 上涨/下跌/震荡期分别建议采用趋势/防守/剥头皮策略',
+      '实时风控提示 - 六爻与量化信号共振时发出预警，及时规避风险',
+      '仓位暴露管理 - 根据市场结构阶段动态调整仓位配置，控制回撤',
     ],
   },
 ];
