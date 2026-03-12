@@ -50,6 +50,7 @@ const caseData = [
 
 export default function Cases({ t }) {
   const [currentIndexes, setCurrentIndexes] = useState([0, 0, 0]);
+  const [slideDirections, setSlideDirections] = useState([null, null, null]);
   const AUTO_PLAY_INTERVAL = 4000; // 自动轮播间隔时间（毫秒）
 
   // 自动轮播效果
@@ -61,17 +62,31 @@ export default function Cases({ t }) {
           return (currentIndex + 1) % caseItem.images.length;
         })
       );
+      setSlideDirections(['left', 'left', 'left']); // 设置滑动方向
+      setTimeout(() => setSlideDirections([null, null, null]), 300); // 重置滑动方向
     }, AUTO_PLAY_INTERVAL);
 
     return () => clearInterval(interval);
   }, []);
 
-  const goToSlide = (caseIndex, slideIndex) => {
+  const goToSlide = (caseIndex, slideIndex, direction) => {
+    setSlideDirections((prev) => {
+      const newDirections = [...prev];
+      newDirections[caseIndex] = direction;
+      return newDirections;
+    });
     setCurrentIndexes((prev) => {
       const newIndexes = [...prev];
       newIndexes[caseIndex] = slideIndex;
       return newIndexes;
     });
+    setTimeout(() => {
+      setSlideDirections((prev) => {
+        const newDirections = [...prev];
+        newDirections[caseIndex] = null;
+        return newDirections;
+      });
+    }, 300);
   };
 
   const goToPrev = (caseIndex, e) => {
@@ -80,7 +95,8 @@ export default function Cases({ t }) {
     const caseItem = caseData[caseIndex];
     goToSlide(
       caseIndex,
-      (currentIndexes[caseIndex] - 1 + caseItem.images.length) % caseItem.images.length
+      (currentIndexes[caseIndex] - 1 + caseItem.images.length) % caseItem.images.length,
+      'right'
     );
   };
 
@@ -88,7 +104,7 @@ export default function Cases({ t }) {
     e.preventDefault();
     e.stopPropagation();
     const caseItem = caseData[caseIndex];
-    goToSlide(caseIndex, (currentIndexes[caseIndex] + 1) % caseItem.images.length);
+    goToSlide(caseIndex, (currentIndexes[caseIndex] + 1) % caseItem.images.length, 'left');
   };
 
   return (
@@ -108,11 +124,17 @@ export default function Cases({ t }) {
               className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
             >
               {/* 轮播图区域 */}
-              <div className="relative h-48 bg-gray-200">
+              <div className="relative h-48 bg-gray-200 overflow-hidden">
                 <img
                   src={item.images[currentIndexes[caseIndex]]}
                   alt={`${t.cases.items[caseIndex]?.title || `案例${caseIndex + 1}`} - 图${currentIndexes[caseIndex] + 1}`}
-                  className="w-full h-full object-cover"
+                  className={`w-full h-full object-cover transition-transform duration-300 ease-in-out ${
+                    slideDirections[caseIndex] === 'left'
+                      ? '-translate-x-full'
+                      : slideDirections[caseIndex] === 'right'
+                      ? 'translate-x-full'
+                      : ''
+                  }`}
                 />
 
                 {/* 左右箭头 */}
@@ -144,7 +166,8 @@ export default function Cases({ t }) {
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
-                          goToSlide(caseIndex, slideIndex);
+                          const direction = slideIndex > currentIndexes[caseIndex] ? 'left' : 'right';
+                          goToSlide(caseIndex, slideIndex, direction);
                         }}
                         className={`w-2 h-2 rounded-full transition-colors ${
                           currentIndexes[caseIndex] === slideIndex
