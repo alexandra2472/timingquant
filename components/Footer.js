@@ -4,7 +4,7 @@ export default function Footer({ t }) {
   return (
     <footer className="bg-gray-50 border-t border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           <div className="col-span-1 md:col-span-2">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
               {t.hero.title}
@@ -38,13 +38,18 @@ export default function Footer({ t }) {
                 <Send size={18} />
                 <a href="https://discord.gg/pRFmHJfR" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900">Discord Community</a>
               </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold text-gray-900 mb-4">&nbsp;</h4>
+            <ul className="space-y-3">
               <li className="flex items-center space-x-2 text-gray-600">
                 <MessageSquare size={18} />
                 <span>钉钉: ltfcs0101</span>
               </li>
               <li className="flex items-center space-x-2 text-gray-600">
-                <span>公众号: </span>
-                <a href="https://ibb.co/8ns4T80D" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 font-medium">加密生存营</a>
+                <a href="https://ibb.co/8ns4T80D" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 font-medium">公众号: 加密生存营</a>
               </li>
               <li className="flex items-center space-x-2 text-gray-600">
                 <Video size={18} />
