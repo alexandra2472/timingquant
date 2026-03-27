@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Features from '@/components/Features';
 import Products from '@/components/Products';
+import MonthlyReview from '@/components/MonthlyReview';
 import Cases from '@/components/Cases';
 import Pricing from '@/components/Pricing';
 import About from '@/components/About';
@@ -34,6 +35,7 @@ export default function Home() {
       <Hero t={t} lang={lang} />
       <Features t={t} />
       <Products t={t} />
+      <MonthlyReview t={t} />
       <Cases t={t} />
       <Pricing t={t} />
       <About t={t} />

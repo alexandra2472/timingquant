@@ -11,6 +11,7 @@ export default function Navbar({ t, lang, setLang }) {
     { key: 'home', href: '#' },
     { key: 'features', href: '#features' },
     { key: 'products', href: '#products' },
+    { key: 'review', href: '#review' },
     { key: 'cases', href: '#cases' },
     { key: 'pricing', href: '#pricing' },
     { key: 'about', href: '#about' },
