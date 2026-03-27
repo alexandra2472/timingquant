@@ -34,26 +34,24 @@ const reviewData = {
     { title: '结构段动态仓位', desc: '根据六爻剧本的6个结构段，每个阶段使用不同的风险参数' },
     { title: '情绪主导型结构适应', desc: '策略正在从"趋势流畅型"向"情绪适应型"进化' },
   ],
-  // QQ二维码图片路径
-  qqQRCode: '/images/qq-qr-code.png',
 };
 
 export default function MonthlyReview({ t }) {
   const [showQRCode, setShowQRCode] = useState(false);
 
   return (
-    <section id="review" className="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <section id="review" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* 标题区域 */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-full text-sm font-medium mb-6">
             <Zap size={16} />
             {reviewData.month}实战成果
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             {reviewData.title}
           </h2>
-          <p className="text-lg text-gray-400 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             {reviewData.subtitle}
           </p>
         </div>
@@ -63,30 +61,30 @@ export default function MonthlyReview({ t }) {
           {reviewData.metrics.map((metric, index) => (
             <div
               key={index}
-              className="bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-2xl p-8 text-center hover:border-slate-600 transition-all duration-300 hover:transform hover:scale-105"
+              className="bg-white border border-gray-200 rounded-2xl p-8 text-center hover:border-gray-300 hover:shadow-lg transition-all duration-300 hover:transform hover:scale-105"
             >
               <div className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br ${metric.color} mb-4`}>
                 <metric.icon size={28} className="text-white" />
               </div>
-              <div className="text-4xl lg:text-5xl font-bold text-white mb-2">
+              <div className="text-4xl lg:text-5xl font-bold text-gray-900 mb-2">
                 {metric.value}
               </div>
-              <div className="text-base text-gray-400">{metric.label}</div>
+              <div className="text-base text-gray-600">{metric.label}</div>
             </div>
           ))}
         </div>
 
         {/* 简化的关键交易展示 - 只说最牛的战绩 */}
-        <div className="bg-gradient-to-br from-green-500/20 to-emerald-500/20 border-2 border-green-500/40 rounded-2xl p-8 mb-12">
+        <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl p-8 mb-12">
           <div className="flex items-center gap-3 mb-4">
-            <Award className="text-green-400" size={32} />
-            <h3 className="text-2xl font-bold text-white">🏆 {reviewData.highlightTrade.title}</h3>
+            <Award className="text-green-600" size={32} />
+            <h3 className="text-2xl font-bold text-gray-900">🏆 {reviewData.highlightTrade.title}</h3>
           </div>
           <div className="flex flex-col md:flex-row md:items-center gap-6">
-            <div className="text-5xl font-bold text-green-400">
+            <div className="text-5xl font-bold text-green-600">
               {reviewData.highlightTrade.profit}
             </div>
-            <p className="text-gray-300 text-lg flex-1">
+            <p className="text-gray-700 text-lg flex-1">
               {reviewData.highlightTrade.desc}
             </p>
           </div>
@@ -94,24 +92,24 @@ export default function MonthlyReview({ t }) {
 
         {/* 只展示做空的亮眼数据 */}
         <div className="mb-12">
-          <h3 className="text-2xl font-bold text-white text-center mb-8">📊 {reviewData.shortStats.title}</h3>
-          <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border-2 border-green-500/30 rounded-2xl p-8 max-w-2xl mx-auto">
+          <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">📊 {reviewData.shortStats.title}</h3>
+          <div className="bg-white border-2 border-green-200 rounded-2xl p-8 max-w-2xl mx-auto shadow-sm">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
               <div>
-                <div className="text-3xl font-bold text-green-400 mb-1">{reviewData.shortStats.count}</div>
-                <div className="text-sm text-gray-400">交易笔数</div>
+                <div className="text-3xl font-bold text-green-600 mb-1">{reviewData.shortStats.count}</div>
+                <div className="text-sm text-gray-600">交易笔数</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-green-400 mb-1">{reviewData.shortStats.winRate}</div>
-                <div className="text-sm text-gray-400">胜率</div>
+                <div className="text-3xl font-bold text-green-600 mb-1">{reviewData.shortStats.winRate}</div>
+                <div className="text-sm text-gray-600">胜率</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-orange-400 mb-1">{reviewData.shortStats.totalR}</div>
-                <div className="text-sm text-gray-400">总收益</div>
+                <div className="text-3xl font-bold text-orange-500 mb-1">{reviewData.shortStats.totalR}</div>
+                <div className="text-sm text-gray-600">总收益</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-green-400 mb-1">{reviewData.shortStats.highlight}</div>
-                <div className="text-sm text-gray-400">止损情况</div>
+                <div className="text-3xl font-bold text-green-600 mb-1">{reviewData.shortStats.highlight}</div>
+                <div className="text-sm text-gray-600">止损情况</div>
               </div>
             </div>
           </div>
@@ -119,32 +117,32 @@ export default function MonthlyReview({ t }) {
 
         {/* 核心优势 */}
         <div className="mb-12">
-          <h3 className="text-2xl font-bold text-white text-center mb-8">💎 为什么我们比别人强？</h3>
+          <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">💎 为什么我们比别人强？</h3>
           <div className="grid md:grid-cols-2 gap-6">
             {reviewData.advantages.map((adv, index) => (
-              <div key={index} className="bg-gradient-to-br from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-xl p-6">
-                <h4 className="text-lg font-bold text-white mb-3">{adv.title}</h4>
-                <p className="text-gray-400 text-sm leading-relaxed">{adv.desc}</p>
+              <div key={index} className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
+                <h4 className="text-lg font-bold text-gray-900 mb-3">{adv.title}</h4>
+                <p className="text-gray-600 text-sm leading-relaxed">{adv.desc}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* CTA - 点击弹出QQ二维码 */}
-        <div className="text-center bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl p-8 lg:p-12">
+        <div className="text-center bg-black rounded-2xl p-8 lg:p-12">
           <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4">
             🚀 准备好盈利了吗？
           </h3>
-          <p className="text-white/90 mb-8 max-w-2xl mx-auto">
+          <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
             三月复盘证明：六爻剧本+策略的组合能带来更高收益、更低风险。四月我们将继续优化，帮你更稳健地盈利！
           </p>
           <button
             onClick={() => setShowQRCode(true)}
-            className="inline-block bg-white text-red-500 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg hover:shadow-xl transform hover:scale-105"
+            className="inline-block bg-white text-black px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg hover:shadow-xl transform hover:scale-105"
           >
             📩 立即加入实战营
           </button>
-          <p className="text-white/70 mt-4 text-sm">限量招募中，扫码或联系QQ了解更多</p>
+          <p className="text-gray-400 mt-4 text-sm">限量招募中，扫码或联系QQ了解更多</p>
         </div>
       </div>
 
@@ -161,11 +159,15 @@ export default function MonthlyReview({ t }) {
             <h3 className="text-xl font-bold text-gray-900 mb-2">扫码添加QQ好友</h3>
             <p className="text-gray-500 text-sm mb-4">QQ号: 3822532541</p>
             <div className="bg-gray-100 rounded-xl p-4 mb-4">
-              {/* 这里显示QQ二维码图片 */}
+              {/* QQ直接扫码添加好友的二维码 - 需要替换为实际图片 */}
               <img
-                src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=3822532541"
-                alt="QQ二维码"
-                className="w-48 h-48 mx-auto"
+                src="/images/qq-add-friend-qr.png"
+                alt="QQ扫码添加好友"
+                className="w-48 h-48 mx-auto object-contain"
+                onError={(e) => {
+                  // 如果图片加载失败，显示占位符
+                  e.target.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=3822532541';
+                }}
               />
             </div>
             <p className="text-gray-500 text-sm">或搜索QQ号：3822532541</p>
