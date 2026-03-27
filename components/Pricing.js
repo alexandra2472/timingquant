@@ -1,13 +1,29 @@
 'use client';
 import { useState } from 'react';
-import { Check, X } from 'lucide-react';
+import { Check, X, Copy } from 'lucide-react';
 
 export default function Pricing({ t }) {
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [showQRCode, setShowQRCode] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
+  const [copied, setCopied] = useState(false);
+
+  // 你的USDT TRC20钱包地址
+  const walletAddress = 'TNzgvPPtrn26me7cAc6HYvBb9nTY8raZ8G';
 
   const handleJoin = (plan) => {
     setSelectedPlan(plan);
+    setShowPaymentModal(true);
+  };
+
+  const copyAddress = () => {
+    navigator.clipboard.writeText(walletAddress);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handlePaymentConfirm = () => {
+    setShowPaymentModal(false);
     setShowQRCode(true);
   };
 
@@ -80,6 +96,62 @@ export default function Pricing({ t }) {
         </div>
       </div>
 
+      {/* 支付弹窗 */}
+      {showPaymentModal && selectedPlan && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full p-6 relative">
+            <button
+              onClick={() => setShowPaymentModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+            >
+              <X size={24} />
+            </button>
+
+            <h3 className="text-xl font-bold text-gray-900 mb-2">
+              开通 {selectedPlan.name}
+            </h3>
+            <p className="text-gray-600 mb-6">
+              价格：<span className="font-bold text-black">{selectedPlan.price}{selectedPlan.period}</span>
+            </p>
+
+            <div className="bg-gray-50 rounded-lg p-4 mb-4">
+              <p className="text-sm text-gray-600 mb-2">支付方式：USDT (TRC20)</p>
+              <p className="text-xs text-gray-500 mb-3">请转账对应金额到以下地址</p>
+              
+              <div className="flex items-center gap-2">
+                <code className="flex-1 bg-white border rounded px-3 py-2 text-sm break-all">
+                  {walletAddress}
+                </code>
+                <button
+                  onClick={copyAddress}
+                  className="p-2 bg-black text-white rounded hover:bg-gray-800"
+                >
+                  {copied ? <Check size={18} /> : <Copy size={18} />}
+                </button>
+              </div>
+              {copied && <p className="text-green-500 text-xs mt-2">已复制到剪贴板</p>}
+            </div>
+
+            <div className="text-sm text-gray-600 mb-4">
+              <p className="font-medium mb-1">付款教程：</p>
+              <ol className="list-decimal list-inside text-sm text-gray-500 space-y-1">
+                <li>打开钱包（imToken/Trust Wallet等）</li>
+                <li>选择USDT，网络选择TRC20</li>
+                <li>转账以上地址</li>
+                <li>付款后联系QQ: 3822532541 确认</li>
+              </ol>
+            </div>
+
+            <button
+              onClick={handlePaymentConfirm}
+              className="w-full py-3 bg-black text-white rounded-lg font-medium hover:bg-gray-800"
+            >
+              我已付款，联系确认
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* QQ二维码弹窗 */}
       {showQRCode && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" onClick={() => setShowQRCode(false)}>
@@ -90,13 +162,8 @@ export default function Pricing({ t }) {
             >
               <X size={24} />
             </button>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
-              开通 {selectedPlan?.name}
-            </h3>
-            <p className="text-gray-600 mb-2">
-              价格：<span className="font-bold text-black">{selectedPlan?.price}{selectedPlan?.period}</span>
-            </p>
-            <p className="text-gray-500 text-sm mb-4">扫码添加QQ好友咨询开通</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">扫码添加QQ好友</h3>
+            <p className="text-gray-500 text-sm mb-4">付款后请添加QQ确认开通</p>
             <div className="bg-gray-100 rounded-xl p-4 mb-4">
               <img
                 src="/images/qq-add-friend-qr.png"
