@@ -9,7 +9,9 @@ export default function Footer({ t }) {
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
               {t.hero.title}
             </h3>
-            <p className="text-gray-600 mb-4">{t.footer.description}</p>
+            {t.footer.description && (
+              <p className="text-gray-600 mb-4">{t.footer.description}</p>
+            )}
           </div>
 
           <div>
