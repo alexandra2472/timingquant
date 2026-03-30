@@ -3,75 +3,30 @@
 import { useState } from 'react';
 import { TrendingUp, TrendingDown, Target, Award, Zap, X } from 'lucide-react';
 
-// 月度复盘数据配置 - 三月完整交易数据（按收益率统计，共14笔）
+// 月度复盘数据配置 - 三月亮点数据
 const reviewData = {
   month: '三月',
   title: '实战复盘：六爻剧本+策略的组合力量',
-  subtitle: '做空胜率100% | 整体胜率71% | 14笔交易多空双杀',
+  subtitle: '做空胜率100% | 整体胜率71% | 精准预判转折点',
   metrics: [
     { value: '100%', label: '做空胜率', icon: TrendingDown, color: 'from-red-500 to-red-600' },
     { value: '71%', label: '整体胜率', icon: Target, color: 'from-blue-500 to-indigo-600' },
     { value: '14笔', label: '本月交易', icon: TrendingUp, color: 'from-green-500 to-emerald-600' },
   ],
-  // 最新关键交易展示（按收益率）
+  // 亮点交易展示
   highlightTrade: {
     title: '单笔最高收益率',
     profit: '+4.99%',
     desc: '3月16日做多ETH单笔+4.99%；做空最高+3.12%，多空双向均有亮眼表现',
   },
-  // 三月整体战绩（按收益率统计）
+  // 三月整体战绩
   shortStats: {
-    title: '三月完整战绩',
+    title: '三月战绩',
     count: '14笔',
     winRate: '71%',
     shortWinRate: '100%',
     longWinRate: '60%',
-    highlight: '4笔做空全胜',
-  },
-  // 详细战绩分析
-  detailedAnalysis: {
-    summary: '三月共执行14笔交易，整体胜率71.4%，其中做空4笔全胜，做多10笔胜率60%。盈利交易最高达+4.99%，亏损交易严格控制在-2.60%。',
-    shortTrades: {
-      count: 4,
-      winRate: '100%',
-      trades: [
-        { date: '3月18日', return: '+3.12%', type: '做空' },
-        { date: '3月9日', return: '+1.74%', type: '做空' },
-        { date: '3月30日', return: '+1.45%', type: '做空' },
-        { date: '3月1日', return: '+0.02%', type: '做空' },
-      ],
-      analysis: '做空信号质量极高，4笔全部盈利。最大单笔+3.12%，最小+0.02%，平均收益率约+1.58%。',
-    },
-    longTrades: {
-      count: 10,
-      winRate: '60%',
-      wins: [
-        { date: '3月16日', return: '+4.99%' },
-        { date: '3月30日', return: '+1.07%' },
-        { date: '3月14日', return: '+0.02%' },
-        { date: '3月12日', return: '+0.02%' },
-        { date: '3月10日', return: '+0.02%' },
-        { date: '3月2日', return: '+0.02%' },
-      ],
-      losses: [
-        { date: '3月26日', return: '-2.60%' },
-        { date: '3月25日', return: '-2.60%' },
-        { date: '3月5日', return: '-2.60%' },
-        { date: '3月1日', return: '-2.60%' },
-      ],
-      analysis: '做多10笔中6笔盈利，胜率60%。盈利交易以小额止盈为主，最高单笔+4.99%为全月最佳。亏损4笔均为-2.60%止损，风控严格执行。',
-    },
-    riskControl: {
-      maxProfit: '+4.99%',
-      maxLoss: '-2.60%',
-      profitLossRatio: '1.92:1',
-      analysis: '盈亏比约1.92:1，盈利上限高于亏损上限，符合正向期望系统。所有亏损严格控制在-2.60%，无大额回撤。',
-    },
-    timeDistribution: {
-      earlyMonth: '3月1-10日：6笔交易，多空各半，磨合期',
-      midMonth: '3月11-20日：4笔交易，出现全月最高收益+4.99%',
-      lateMonth: '3月21-30日：4笔交易，做空全胜收尾',
-    },
+    highlight: '做空全胜',
   },
   advantages: [
     { title: '做空100%胜率', desc: '3月4笔做空全部盈利（+3.12%、+1.74%、+1.45%、+0.02%），做空信号质量极高' },
@@ -155,105 +110,6 @@ export default function MonthlyReview({ t }) {
               <div>
                 <div className="text-3xl font-bold text-green-600 mb-1">{reviewData.shortStats.highlight}</div>
                 <div className="text-sm text-gray-600">止损情况</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* 详细战绩分析 */}
-        <div className="mb-12">
-          <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">📈 全月战绩深度分析</h3>
-          
-          {/* 总体概述 */}
-          <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-xl mb-8">
-            <p className="text-gray-800 leading-relaxed">{reviewData.detailedAnalysis.summary}</p>
-          </div>
-
-          {/* 做空战绩 */}
-          <div className="bg-red-50 rounded-2xl p-6 mb-6">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white font-bold">空</div>
-              <h4 className="text-xl font-bold text-gray-900">做空战绩（全胜）</h4>
-              <span className="px-3 py-1 bg-red-600 text-white text-sm font-bold rounded-full">100% 胜率</span>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-              {reviewData.detailedAnalysis.shortTrades.trades.map((trade, idx) => (
-                <div key={idx} className="bg-white rounded-lg p-4 text-center">
-                  <div className="text-sm text-gray-500 mb-1">{trade.date}</div>
-                  <div className="text-xl font-bold text-red-600">{trade.return}</div>
-                </div>
-              ))}
-            </div>
-            <p className="text-gray-700 text-sm">{reviewData.detailedAnalysis.shortTrades.analysis}</p>
-          </div>
-
-          {/* 做多战绩 */}
-          <div className="bg-green-50 rounded-2xl p-6 mb-6">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center text-white font-bold">多</div>
-              <h4 className="text-xl font-bold text-gray-900">做多战绩</h4>
-              <span className="px-3 py-1 bg-green-600 text-white text-sm font-bold rounded-full">60% 胜率</span>
-            </div>
-            <div className="grid md:grid-cols-2 gap-4 mb-4">
-              <div>
-                <p className="text-sm text-gray-500 mb-2">✅ 盈利交易（6笔）</p>
-                <div className="flex flex-wrap gap-2">
-                  {reviewData.detailedAnalysis.longTrades.wins.map((trade, idx) => (
-                    <span key={idx} className="px-3 py-1 bg-green-200 text-green-800 text-sm rounded-full">
-                      {trade.date} {trade.return}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <p className="text-sm text-gray-500 mb-2">❌ 止损交易（4笔）</p>
-                <div className="flex flex-wrap gap-2">
-                  {reviewData.detailedAnalysis.longTrades.losses.map((trade, idx) => (
-                    <span key={idx} className="px-3 py-1 bg-gray-200 text-gray-700 text-sm rounded-full">
-                      {trade.date} {trade.return}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <p className="text-gray-700 text-sm">{reviewData.detailedAnalysis.longTrades.analysis}</p>
-          </div>
-
-          {/* 风控分析 */}
-          <div className="bg-amber-50 rounded-2xl p-6 mb-6">
-            <h4 className="text-xl font-bold text-gray-900 mb-4">🛡️ 风险控制分析</h4>
-            <div className="grid grid-cols-3 gap-4 mb-4">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-green-600">{reviewData.detailedAnalysis.riskControl.maxProfit}</div>
-                <div className="text-sm text-gray-600">最大盈利</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-red-600">{reviewData.detailedAnalysis.riskControl.maxLoss}</div>
-                <div className="text-sm text-gray-600">最大亏损</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">{reviewData.detailedAnalysis.riskControl.profitLossRatio}</div>
-                <div className="text-sm text-gray-600">盈亏比</div>
-              </div>
-            </div>
-            <p className="text-gray-700 text-sm">{reviewData.detailedAnalysis.riskControl.analysis}</p>
-          </div>
-
-          {/* 时间分布 */}
-          <div className="bg-slate-100 rounded-2xl p-6">
-            <h4 className="text-xl font-bold text-gray-900 mb-4">📅 交易时间分布</h4>
-            <div className="space-y-3">
-              <div className="flex items-start gap-3">
-                <span className="px-2 py-1 bg-blue-200 text-blue-800 text-xs font-bold rounded">月初</span>
-                <p className="text-gray-700 text-sm">{reviewData.detailedAnalysis.timeDistribution.earlyMonth}</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="px-2 py-1 bg-purple-200 text-purple-800 text-xs font-bold rounded">月中</span>
-                <p className="text-gray-700 text-sm">{reviewData.detailedAnalysis.timeDistribution.midMonth}</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="px-2 py-1 bg-orange-200 text-orange-800 text-xs font-bold rounded">月末</span>
-                <p className="text-gray-700 text-sm">{reviewData.detailedAnalysis.timeDistribution.lateMonth}</p>
               </div>
             </div>
           </div>
