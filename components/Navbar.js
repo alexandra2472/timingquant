@@ -15,6 +15,7 @@ export default function Navbar({ t, lang, setLang }) {
     { key: 'cases', href: '#cases' },
     { key: 'pricing', href: '#pricing' },
     { key: 'about', href: '#about' },
+    { key: 'research', href: '/research' },
   ];
 
   const toggleLang = () => {
