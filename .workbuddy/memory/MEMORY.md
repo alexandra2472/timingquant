@@ -48,12 +48,12 @@
 - **访问控制**: Cloudflare Access 保护 `/research` 路径
 - **已配置域名**: `timingquant.com/research` 和 `www.timingquant.com/research`
 - **访问策略**: 已付费会员邮箱白名单
-- **研报内容**: 三月剧本推演已上线，四月待更新
+- **研报内容**: 三月、四月剧本推演均已上线
 
 ## 待办事项
 - [ ] 替换复盘板块中的 `ethusdt_analysis.png` 为实际配图
 - [ ] 替换 Cases 中的 Unsplash 占位图为实际案例配图
-- [ ] 添加四月研报内容
+- [x] 添加四月研报内容
 
 ## 更新记录
 - 2026-03-27: 新增月度复盘板块，整合三月复盘对外获客版内容

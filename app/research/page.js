@@ -25,6 +25,7 @@ export default function ResearchPage() {
   const aprilContent = {
     title: '四月剧本推演',
     subtitle: 'BTC 月度行情结构分析',
+    updatedAt: '2025-03-30',
     summary: '从年卦上看，4月是一个很可能大跌的月份。整体形态接近先涨后跌，但应该是属于那种涨幅不多，但是跌的比较多的一个月。',
     yearView: {
       title: '年卦视角',
@@ -127,6 +128,7 @@ export default function ResearchPage() {
   const marchContent = {
     title: '三月剧本推演',
     subtitle: 'BTC 月度行情结构分析',
+    updatedAt: '2025-03-01',
     summary: '这个月的结构剧本，比 2 月要"干脆"很多。2 月是磨人型结构，3 月是——情绪上半月集中释放，下半月慢性衰竭。',
     sections: [
       {
@@ -258,7 +260,10 @@ export default function ResearchPage() {
           <article className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
             {/* Header */}
             <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white px-8 py-12">
-              <div className="text-sm text-blue-400 font-medium mb-2">2025年3月</div>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm text-blue-400 font-medium">2025年3月</span>
+                <span className="text-xs text-slate-400">更新于 {marchContent.updatedAt}</span>
+              </div>
               <h1 className="text-3xl font-bold mb-4">{marchContent.title}</h1>
               <p className="text-xl text-slate-300">{marchContent.subtitle}</p>
             </div>
@@ -350,7 +355,10 @@ export default function ResearchPage() {
           <article className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
             {/* Header */}
             <div className="bg-gradient-to-r from-red-900 to-slate-800 text-white px-8 py-12">
-              <div className="text-sm text-red-400 font-medium mb-2">2025年4月</div>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm text-red-400 font-medium">2025年4月</span>
+                <span className="text-xs text-slate-400">更新于 {aprilContent.updatedAt}</span>
+              </div>
               <h1 className="text-3xl font-bold mb-4">{aprilContent.title}</h1>
               <p className="text-xl text-slate-300">{aprilContent.subtitle}</p>
             </div>
