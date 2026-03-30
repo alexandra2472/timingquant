@@ -38,9 +38,9 @@ const caseData = [
   {
     // 案例3: VIP会员 - 多标的研究与额外策略
     images: [
-      'https://images.unsplash.com/photo-1639322537228-f710d846310a?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1642104704074-907c0698cbd9?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1634704784915-aacf363b021f?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?w=600&h=400&fit=crop',
     ],
     captions: [
       '多标的研究 - 不局限于BTC/ETH，工作室持续跟踪其他有价值的交易对',
