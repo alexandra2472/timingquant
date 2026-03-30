@@ -10,46 +10,42 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const caseData = [
   {
-    // 案例1: 六爻周期识别系统
+    // 案例1: 实战营 - ETH合约实操
     images: [
-      'https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1642790106117-e829e14a795f?w=600&h=400&fit=crop',
-    ],
-    captions: [
-      '大周期顶底精准识别 - 2022年熊市底部提示、2023年顶部预警',
-      '月度结构段前瞻 - 每月初发布当月行情结构预判及关键时间节点',
-      '潜力品种爆发窗口 - 提前锁定尚处于低位且具备爆发条件的标的',
-    ],
-  },
-  {
-    // 案例2: 量化交易策略系统
-    images: [
+      'https://images.unsplash.com/photo-1640340434855-6084b1f4901c?w=600&h=400&fit=crop',
       'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&h=400&fit=crop',
       'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1642104704074-907c0698cbd9?w=600&h=400&fit=crop',
     ],
     captions: [
-      '趋势型策略 - 4H/D周期捕捉大级别趋势，自动生成买卖信号',
-      '剥头皮短线策略 - 1-5分钟级别捕捉市场波动，积少成多',
-      '策略回测表现 - 过去12个月趋势策略收益率65%，胜率62%',
-      '多策略组合 - 趋势+剥头皮双策略互补，平滑收益波动',
+      '1H级别趋势跟随 - 结合结构判断，在趋势确认点位入场，避免追涨杀跌',
+      '仓位管理实操 - 单笔风险控制在固定比例，保住本金才能持续盈利',
+      '交易认知训练 - 识别哪些行为长期必亏，建立正确的合约操作思维',
     ],
   },
   {
-    // 案例3: 社群风控赋能体系
+    // 案例2: 现货研报 - BTC周期剧本
     images: [
-      'https://images.unsplash.com/photo-1639322537228-f710d846310a?w=600&h=400&fit=crop',
       'https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=600&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=600&h=400&fit=crop',
       'https://images.unsplash.com/photo-1642790106117-e829e14a795f?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=600&h=400&fit=crop',
     ],
     captions: [
-      '执行力系统性训练 - 21天纪律养成计划，拒绝情绪化交易',
-      '结构段角色赋能 - 上涨/下跌/震荡期分别建议采用趋势/防守/剥头皮策略',
-      '实时风控提示 - 六爻与量化信号共振时发出预警，及时规避风险',
-      '仓位暴露管理 - 根据市场结构阶段动态调整仓位配置，控制回撤',
+      '月度行情剧本 - 每月发布BTC结构预判，提示关键高低点可能性区间',
+      '易经周期定位 - 用六爻卦象判断当前所处的市场周期阶段',
+      '年度剧本参考 - 为大资金波段投资者提供全年趋势方向与节奏预判',
+    ],
+  },
+  {
+    // 案例3: VIP会员 - 多标的研究与额外策略
+    images: [
+      'https://images.unsplash.com/photo-1639322537228-f710d846310a?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1642104704074-907c0698cbd9?w=600&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&h=400&fit=crop',
+    ],
+    captions: [
+      '多标的研究 - 不局限于BTC/ETH，工作室持续跟踪其他有价值的交易对',
+      '额外策略共享 - 实战营之外的交易策略，VIP成员优先获取',
+      '开放式权益 - 工作室的研究成果与认知迭代，第一时间同步给VIP成员',
     ],
   },
 ];
