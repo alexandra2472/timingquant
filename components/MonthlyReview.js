@@ -3,35 +3,35 @@
 import { useState } from 'react';
 import { TrendingUp, TrendingDown, Target, Award, Zap, X } from 'lucide-react';
 
-// 月度复盘数据配置 - 三月完整数据更新
+// 月度复盘数据配置 - 三月收益率数据（按百分比统计）
 const reviewData = {
   month: '三月',
   title: '实战复盘：六爻剧本+策略的组合力量',
-  subtitle: '累计收益 +154.57% | 多空双向捕捉 | 精准预判转折点',
+  subtitle: '做空胜率100% | 整体胜率71% | 多空双向精准捕捉',
   metrics: [
-    { value: '+154.57%', label: '累计收益率', icon: TrendingUp, color: 'from-green-500 to-emerald-600' },
-    { value: '154K+', label: '累计收益 USDT', icon: Target, color: 'from-blue-500 to-indigo-600' },
-    { value: '100%', label: '做空胜率', icon: TrendingDown, color: 'from-orange-500 to-red-600' },
+    { value: '100%', label: '做空胜率', icon: TrendingDown, color: 'from-red-500 to-red-600' },
+    { value: '71%', label: '整体胜率', icon: Target, color: 'from-blue-500 to-indigo-600' },
+    { value: '7笔', label: '本月交易', icon: TrendingUp, color: 'from-green-500 to-emerald-600' },
   ],
-  // 最新关键交易展示
+  // 最新关键交易展示（按收益率）
   highlightTrade: {
-    title: '多空双向精准捕捉',
-    profit: '+3.12% / +4.99%',
-    desc: '3月18日做空ETH吃到+3.12%，3月16日做多ETH吃到+4.99%，多空双向均有斩获',
+    title: '单笔最高收益率',
+    profit: '+4.99%',
+    desc: '3月16日做多ETH，单笔收益率+4.99%；做空最高+3.12%，多空双向均有亮眼表现',
   },
-  // 三月整体战绩
+  // 三月整体战绩（按收益率统计）
   shortStats: {
-    title: '三月整体战绩',
+    title: '三月交易统计',
     count: '7笔',
     winRate: '71%',
-    avgR: '+2.21R',
-    totalR: '+15.45R',
-    highlight: '多空双杀',
+    shortWinRate: '100%',
+    longWinRate: '60%',
+    highlight: '做空全胜',
   },
   advantages: [
-    { title: '多空双向精准判断', desc: '三月7笔交易中，做空100%胜率，做多也有不错表现，多空双向均有斩获' },
-    { title: '累计收益154.57%', desc: '从年初到3月30日，策略累计收益达154,565 USDT，收益率154.57%' },
-    { title: '结构段动态仓位', desc: '根据六爻剧本的6个结构段，每个阶段使用不同的风险参数，灵活应对' },
+    { title: '做空100%胜率', desc: '3月2笔做空全部盈利（+3.12%、+1.45%），做空信号质量极高' },
+    { title: '多空双向盈利', desc: '做多5笔中3笔盈利（+4.99%、+1.15%、+0.02%），多空均有斩获' },
+    { title: '严格风险控制', desc: '亏损交易控制在-2.60%，盈利交易最高达+4.99%，盈亏比健康' },
     { title: '情绪主导型结构适应', desc: '策略正在从"趋势流畅型"向"情绪适应型"进化，适应市场变化' },
   ],
 };
