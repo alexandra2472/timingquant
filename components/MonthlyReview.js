@@ -3,34 +3,34 @@
 import { useState } from 'react';
 import { TrendingUp, TrendingDown, Target, Award, Zap, X } from 'lucide-react';
 
-// 月度复盘数据配置 - 三月收益率数据（按百分比统计）
+// 月度复盘数据配置 - 三月完整交易数据（按收益率统计，共14笔）
 const reviewData = {
   month: '三月',
   title: '实战复盘：六爻剧本+策略的组合力量',
-  subtitle: '做空胜率100% | 整体胜率71% | 多空双向精准捕捉',
+  subtitle: '做空胜率100% | 整体胜率71% | 14笔交易多空双杀',
   metrics: [
     { value: '100%', label: '做空胜率', icon: TrendingDown, color: 'from-red-500 to-red-600' },
     { value: '71%', label: '整体胜率', icon: Target, color: 'from-blue-500 to-indigo-600' },
-    { value: '7笔', label: '本月交易', icon: TrendingUp, color: 'from-green-500 to-emerald-600' },
+    { value: '14笔', label: '本月交易', icon: TrendingUp, color: 'from-green-500 to-emerald-600' },
   ],
   // 最新关键交易展示（按收益率）
   highlightTrade: {
     title: '单笔最高收益率',
     profit: '+4.99%',
-    desc: '3月16日做多ETH，单笔收益率+4.99%；做空最高+3.12%，多空双向均有亮眼表现',
+    desc: '3月16日做多ETH单笔+4.99%；做空最高+3.12%，多空双向均有亮眼表现',
   },
   // 三月整体战绩（按收益率统计）
   shortStats: {
-    title: '三月交易统计',
-    count: '7笔',
+    title: '三月完整战绩',
+    count: '14笔',
     winRate: '71%',
     shortWinRate: '100%',
     longWinRate: '60%',
-    highlight: '做空全胜',
+    highlight: '4笔做空全胜',
   },
   advantages: [
-    { title: '做空100%胜率', desc: '3月2笔做空全部盈利（+3.12%、+1.45%），做空信号质量极高' },
-    { title: '多空双向盈利', desc: '做多5笔中3笔盈利（+4.99%、+1.15%、+0.02%），多空均有斩获' },
+    { title: '做空100%胜率', desc: '3月4笔做空全部盈利（+3.12%、+1.74%、+1.45%、+0.02%），做空信号质量极高' },
+    { title: '多空双向盈利', desc: '做多10笔中6笔盈利，最高+4.99%，多空均有斩获' },
     { title: '严格风险控制', desc: '亏损交易控制在-2.60%，盈利交易最高达+4.99%，盈亏比健康' },
     { title: '情绪主导型结构适应', desc: '策略正在从"趋势流畅型"向"情绪适应型"进化，适应市场变化' },
   ],
