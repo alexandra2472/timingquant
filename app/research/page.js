@@ -19,8 +19,110 @@ export default function ResearchPage() {
 
   const months = [
     { id: 'march', label: '三月研报', labelEn: 'March Report', status: 'published' },
-    { id: 'april', label: '四月研报', labelEn: 'April Report', status: 'upcoming' },
+    { id: 'april', label: '四月研报', labelEn: 'April Report', status: 'published' },
   ];
+
+  const aprilContent = {
+    title: '四月剧本推演',
+    subtitle: 'BTC 月度行情结构分析',
+    summary: '从年卦上看，4月是一个很可能大跌的月份。整体形态接近先涨后跌，但应该是属于那种涨幅不多，但是跌的比较多的一个月。',
+    yearView: {
+      title: '年卦视角',
+      content: '从年卦上看，4月是一个很可能大跌的月份。',
+      highlight: true,
+    },
+    monthView: {
+      title: '月卦推演',
+      intro: '月卦上看月初两天轻微涨幅波动下，从3号开始，就会有明显的下跌出现。',
+    },
+    timeline: [
+      {
+        date: '4月1-2日',
+        title: '月初轻微涨幅波动',
+        content: '月初两天轻微涨幅波动。',
+        type: 'neutral',
+      },
+      {
+        date: '4月3日起',
+        title: '明显下跌开始',
+        content: '从3号开始，就会有明显的下跌出现。',
+        type: 'bearish',
+      },
+      {
+        date: '4月6日左右',
+        title: '月初第一个明显低点',
+        content: '在6号左右，出现月初的第一个明显低点。',
+        type: 'low',
+      },
+      {
+        date: '4月7-8日',
+        title: '短时间反弹',
+        content: '7号，8号之间会有短时间反弹，但整体能量不会特别强。',
+        type: 'bounce',
+      },
+      {
+        date: '4月9日',
+        title: '下插针',
+        content: '9号可能会有个下插针，整体会接近就是波动性的反弹，或者震荡，大概能够持续到10号，11号之间。',
+        type: 'volatile',
+      },
+      {
+        date: '4月12日起',
+        title: '波动剧烈',
+        content: '12号开始波动会比较剧烈，可能有一个上插针继续回落，但是这一波有可能更像回踩。',
+        type: 'volatile',
+      },
+      {
+        date: '4月14日左右',
+        title: '诱多上插',
+        content: '14号左右甚至有可能再出现一个明显上插，让很多人认为开始反弹了。这个可能就是诱多。',
+        type: 'trap',
+        warning: '诱多风险',
+      },
+      {
+        date: '4月14-18日',
+        title: '持续下跌',
+        content: '从14号上插针以后，几乎会跌到17号到18号之间。',
+        type: 'bearish',
+      },
+      {
+        date: '4月17-18日',
+        title: '本月可能最低点之一',
+        content: '这个时候开始有震荡中的反弹轻微，但是力度也是比较弱的，很可能就是一个震荡或者横盘。',
+        type: 'low',
+        note: '本月最低点可能位置',
+      },
+      {
+        date: '4月21-22日',
+        title: '突然上插针',
+        content: '要小心这个时间呢，其实不太容易做多，但是呢，又会有一些特殊的上插针出现，如21号，22号可能会有明显突然的上插针出现。',
+        type: 'trap',
+        warning: '不易做多',
+      },
+      {
+        date: '4月24-26日',
+        title: '再次上插针反弹',
+        content: '然后波动到24号，25号之间，会在25号，26号又出现一个上插针的反弹。',
+        type: 'bounce',
+      },
+      {
+        date: '4月27-30日',
+        title: '回落到本月低点',
+        content: '27号以后还是要回落的，估计到29号，30号会出现一个本月的明显低点。',
+        type: 'low',
+        note: '本月最低点可能位置',
+      },
+    ],
+    keyPoints: {
+      lowest: ['4月17-18日', '4月29-30日'],
+      highest: ['4月2日', '4月11日', '4月14日'],
+      pattern: '先涨后跌，涨幅不多，跌的较多',
+    },
+    recommendation: {
+      direction: '空单作为4月的主要方向',
+      note: '在有正向期望系统的前提下，可适当放大空单的仓位。',
+    },
+  };
 
   const marchContent = {
     title: '三月剧本推演',
@@ -245,15 +347,118 @@ export default function ResearchPage() {
         )}
 
         {activeMonth === 'april' && (
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-12 text-center">
-            <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <svg className="w-10 h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+          <article className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-red-900 to-slate-800 text-white px-8 py-12">
+              <div className="text-sm text-red-400 font-medium mb-2">2025年4月</div>
+              <h1 className="text-3xl font-bold mb-4">{aprilContent.title}</h1>
+              <p className="text-xl text-slate-300">{aprilContent.subtitle}</p>
             </div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-2">四月研报</h2>
-            <p className="text-slate-500">即将更新，敬请期待</p>
-          </div>
+
+            <div className="p-8">
+              {/* Year View Warning */}
+              <div className="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg mb-8">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="px-3 py-1 bg-red-600 text-white text-sm font-bold rounded">年卦</span>
+                  <span className="text-red-800 font-bold">{aprilContent.yearView.title}</span>
+                </div>
+                <p className="text-lg text-slate-800 leading-relaxed">{aprilContent.yearView.content}</p>
+              </div>
+
+              {/* Summary */}
+              <div className="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-r-lg mb-8">
+                <p className="text-lg text-slate-800 leading-relaxed">{aprilContent.summary}</p>
+              </div>
+
+              {/* Month View Intro */}
+              <section className="mb-10">
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="px-3 py-1 bg-blue-600 text-white text-sm font-bold rounded">月卦</span>
+                  <h2 className="text-2xl font-bold text-slate-900">{aprilContent.monthView.title}</h2>
+                </div>
+                <p className="text-slate-700 leading-relaxed">{aprilContent.monthView.intro}</p>
+              </section>
+
+              {/* Timeline */}
+              <section className="mb-10">
+                <h2 className="text-2xl font-bold text-slate-900 mb-6">每日推演</h2>
+                <div className="relative">
+                  {/* Timeline line */}
+                  <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-slate-200"></div>
+                  
+                  {aprilContent.timeline.map((item, idx) => (
+                    <div key={idx} className="relative flex gap-6 mb-6">
+                      {/* Dot */}
+                      <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 z-10 ${
+                        item.type === 'bearish' ? 'bg-red-600 text-white' :
+                        item.type === 'low' ? 'bg-red-800 text-white' :
+                        item.type === 'bounce' ? 'bg-green-600 text-white' :
+                        item.type === 'trap' ? 'bg-amber-500 text-white' :
+                        item.type === 'volatile' ? 'bg-purple-600 text-white' :
+                        'bg-slate-400 text-white'
+                      }`}>
+                        <span className="text-xs font-bold">{idx + 1}</span>
+                      </div>
+                      
+                      {/* Content */}
+                      <div className="flex-1 bg-slate-50 rounded-lg p-5">
+                        <div className="flex items-center gap-3 mb-2">
+                          <span className="text-sm font-bold text-slate-500">{item.date}</span>
+                          {item.warning && (
+                            <span className="px-2 py-0.5 bg-red-100 text-red-700 text-xs font-bold rounded">⚠️ {item.warning}</span>
+                          )}
+                          {item.note && (
+                            <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-bold rounded">{item.note}</span>
+                          )}
+                        </div>
+                        <h3 className="text-lg font-bold text-slate-900 mb-2">{item.title}</h3>
+                        <p className="text-slate-700 leading-relaxed">{item.content}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* Key Points Summary */}
+              <section className="mb-10 bg-slate-100 rounded-xl p-8">
+                <h2 className="text-2xl font-bold text-slate-900 mb-6">关键节点总结</h2>
+                
+                <div className="grid md:grid-cols-3 gap-6">
+                  <div className="bg-white rounded-lg p-5 border-l-4 border-red-600">
+                    <p className="text-sm text-slate-500 mb-2">本月最低点</p>
+                    <div className="space-y-1">
+                      {aprilContent.keyPoints.lowest.map((date, idx) => (
+                        <p key={idx} className="text-red-700 font-bold">{date}</p>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white rounded-lg p-5 border-l-4 border-green-600">
+                    <p className="text-sm text-slate-500 mb-2">本月最高点</p>
+                    <div className="space-y-1">
+                      {aprilContent.keyPoints.highest.map((date, idx) => (
+                        <p key={idx} className="text-green-700 font-bold">{date}</p>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white rounded-lg p-5 border-l-4 border-blue-600">
+                    <p className="text-sm text-slate-500 mb-2">整体形态</p>
+                    <p className="text-blue-700 font-bold">{aprilContent.keyPoints.pattern}</p>
+                  </div>
+                </div>
+              </section>
+
+              {/* Recommendation */}
+              <section className="bg-red-900 text-white p-8 rounded-xl">
+                <h2 className="text-2xl font-bold mb-4">策略建议</h2>
+                <div className="bg-red-800 rounded-lg p-6 mb-4">
+                  <p className="text-xl font-bold text-red-200 mb-2">{aprilContent.recommendation.direction}</p>
+                </div>
+                <p className="text-red-200">{aprilContent.recommendation.note}</p>
+              </section>
+            </div>
+          </article>
         )}
       </div>
 
