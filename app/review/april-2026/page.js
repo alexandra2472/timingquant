@@ -21,10 +21,10 @@ export default function AprilReviewPage() {
       segment: '阶段2', 
       period: '4/3-5日', 
       name: '明显下跌开始', 
-      long: 0, 
+      long: 0.2, 
       short: 1.0, 
       desc: '从3号开始明显下跌，空头主导',
-      note: '不做多，正常做空'
+      note: '极轻仓多，正常做空'
     },
     { 
       segment: '阶段3', 
@@ -57,20 +57,20 @@ export default function AprilReviewPage() {
       segment: '阶段6', 
       period: '4/14日', 
       name: '诱多上插', 
-      long: 0, 
+      long: 0.2, 
       short: 1.2, 
       desc: '14号可能明显上插，诱多陷阱',
-      note: '⚠️ 极不做多，重仓做空',
+      note: '⚠️ 极轻仓多，重仓做空',
       warning: true
     },
     { 
       segment: '阶段7', 
       period: '4/15-18日', 
       name: '持续下跌', 
-      long: 0, 
+      long: 0.2, 
       short: 1.0, 
       desc: '14号上插后跌至17-18号',
-      note: '单边下跌，只做空'
+      note: '单边下跌，极轻仓多，正常做空'
     },
     { 
       segment: '阶段8', 
