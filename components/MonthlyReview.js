@@ -3,36 +3,36 @@
 import { useState } from 'react';
 import { TrendingUp, TrendingDown, Target, Award, Zap, X } from 'lucide-react';
 
-// 月度复盘数据配置 - 只保留最亮眼的数据
+// 月度复盘数据配置 - 三月完整数据更新
 const reviewData = {
   month: '三月',
   title: '实战复盘：六爻剧本+策略的组合力量',
-  subtitle: '做空胜率100% | 六爻剧本准确率80% | 捕捉假希望插针-11.41%',
+  subtitle: '累计收益 +154.57% | 多空双向捕捉 | 精准预判转折点',
   metrics: [
-    { value: '100%', label: '做空胜率', icon: TrendingDown, color: 'from-green-500 to-emerald-600' },
-    { value: '80%', label: '六爻剧本准确率', icon: Target, color: 'from-blue-500 to-indigo-600' },
-    { value: '+5.70R', label: '做空总收益', icon: TrendingUp, color: 'from-orange-500 to-red-600' },
+    { value: '+154.57%', label: '累计收益率', icon: TrendingUp, color: 'from-green-500 to-emerald-600' },
+    { value: '154K+', label: '累计收益 USDT', icon: Target, color: 'from-blue-500 to-indigo-600' },
+    { value: '100%', label: '做空胜率', icon: TrendingDown, color: 'from-orange-500 to-red-600' },
   ],
-  // 简化的关键交易展示 - 只说最牛的
+  // 最新关键交易展示
   highlightTrade: {
-    title: '完美捕捉段4回光区暴跌',
-    profit: '+3.12%',
-    desc: '3月18日，六爻剧本预判"假希望插针"，策略精准做空，单笔吃到+1.56R',
+    title: '多空双向精准捕捉',
+    profit: '+3.12% / +4.99%',
+    desc: '3月18日做空ETH吃到+3.12%，3月16日做多ETH吃到+4.99%，多空双向均有斩获',
   },
-  // 只展示做空的亮眼数据
+  // 三月整体战绩
   shortStats: {
-    title: '三月做空战绩',
-    count: '3笔',
-    winRate: '100%',
-    avgR: '+1.90R',
-    totalR: '+5.70R',
-    highlight: '零止损',
+    title: '三月整体战绩',
+    count: '7笔',
+    winRate: '71%',
+    avgR: '+2.21R',
+    totalR: '+15.45R',
+    highlight: '多空双杀',
   },
   advantages: [
-    { title: '情绪转折点精准判断', desc: '六爻剧本在段4回光区的假希望插针判断准确，完美预警了-11.41%的暴跌' },
-    { title: '做空信号100%胜率', desc: '数据证明，在情绪主导型行情中，做空信号质量明显高于做多' },
-    { title: '结构段动态仓位', desc: '根据六爻剧本的6个结构段，每个阶段使用不同的风险参数' },
-    { title: '情绪主导型结构适应', desc: '策略正在从"趋势流畅型"向"情绪适应型"进化' },
+    { title: '多空双向精准判断', desc: '三月7笔交易中，做空100%胜率，做多也有不错表现，多空双向均有斩获' },
+    { title: '累计收益154.57%', desc: '从年初到3月30日，策略累计收益达154,565 USDT，收益率154.57%' },
+    { title: '结构段动态仓位', desc: '根据六爻剧本的6个结构段，每个阶段使用不同的风险参数，灵活应对' },
+    { title: '情绪主导型结构适应', desc: '策略正在从"趋势流畅型"向"情绪适应型"进化，适应市场变化' },
   ],
 };
 
