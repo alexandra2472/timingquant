@@ -436,7 +436,7 @@ export default function ResearchPage() {
         <div className="max-w-6xl mx-auto px-6 text-center text-slate-500 text-sm">
           <p>
             © <span
-              onClick={() => setAccessModal('march')}
+              onClick={() => setAccessModal(activeMonth)}
               className="cursor-pointer hover:text-blue-400 transition-colors duration-300"
             >2025时势量化工作室</span>. 会员专享内容，请勿外传。
           </p>
