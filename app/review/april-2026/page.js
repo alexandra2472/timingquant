@@ -30,28 +30,28 @@ export default function AprilReviewPage() {
       segment: '阶段3', 
       period: '4/6-8日', 
       name: '月初低点+弱反弹', 
-      long: 0.4, 
-      short: 0.6, 
-      desc: '6号左右出现低点，7-8号弱反弹',
-      note: '低点轻仓试多，反弹无力转空'
+      long: 0.5, 
+      short: 0.5, 
+      desc: '6号明显低点，7-8号短时间反弹但能量不强',
+      note: '方向不明，多空均轻仓'
     },
     { 
       segment: '阶段4', 
       period: '4/9-11日', 
       name: '下插针+震荡', 
-      long: 0.3, 
-      short: 0.8, 
-      desc: '9号下插针，10-11号震荡',
-      note: '波动剧烈，降低仓位'
+      long: 0.5, 
+      short: 0.5, 
+      desc: '9号下插针，10-11号震荡或横盘',
+      note: '方向不明，多空均轻仓'
     },
     { 
       segment: '阶段5', 
       period: '4/12-13日', 
-      name: '剧烈波动+上插针', 
-      long: 0.2, 
-      short: 1.0, 
-      desc: '12号波动剧烈，可能上插针后回落',
-      note: '诱多风险，重仓空'
+      name: '剧烈波动+震荡', 
+      long: 0.5, 
+      short: 0.5, 
+      desc: '12号开始波动剧烈，上插针后回落更像回踩',
+      note: '方向不明，多空均轻仓'
     },
     { 
       segment: '阶段6', 
@@ -225,7 +225,7 @@ export default function AprilReviewPage() {
             <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
               <div className="px-6 py-4 bg-slate-50 border-b border-slate-200">
                 <h3 className="font-bold text-slate-900">多空仓位系数设计</h3>
-                <p className="text-sm text-slate-500 mt-1">原则：信号全收，仓位调节，风控优先 | 四月主旋律：偏空，空单为主</p>
+                <p className="text-sm text-slate-500 mt-1">原则：信号全收，仓位调节，风控优先 | 阶段3-5方向不明，多空均轻仓</p>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full">
