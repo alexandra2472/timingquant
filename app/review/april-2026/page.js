@@ -65,20 +65,20 @@ export default function AprilReviewPage() {
     },
     { 
       segment: '阶段7', 
-      period: '4/15-18日', 
+      period: '4/15-17日', 
       name: '持续下跌', 
       long: 0.2, 
       short: 1.0, 
-      desc: '14号上插后跌至17-18号',
+      desc: '14号上插后跌至17号',
       note: '单边下跌，极轻仓多，正常做空'
     },
     { 
       segment: '阶段8', 
-      period: '4/19-20日', 
+      period: '4/17-20日', 
       name: '最低点弱反弹', 
       long: 0.3, 
       short: 0.5, 
-      desc: '17-18号最低点后弱反弹',
+      desc: '17号最低点后弱反弹',
       note: '力度弱，谨慎参与'
     },
     { 
