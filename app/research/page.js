@@ -1,14 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { translations } from '@/lib/i18n';
 import Link from 'next/link';
 
 export default function ResearchPage() {
   const [lang, setLang] = useState('zh');
   const [activeMonth, setActiveMonth] = useState('march');
-  const router = useRouter();
 
   useEffect(() => {
     const savedLang = localStorage.getItem('lang');
@@ -21,8 +19,29 @@ export default function ResearchPage() {
 
   const months = [
     { id: 'march', label: '三月研报', labelEn: 'March Report', status: 'published' },
-    { id: 'april', label: '四月研报', labelEn: 'April Report', status: 'published', redirect: '/review/april-2026' },
+    { id: 'april', label: '四月研报', labelEn: 'April Report', status: 'published' },
   ];
+
+  const aprilCoefficients = [
+    { segment: '阶段1', period: '4/1-2日', name: '月初轻微涨幅', long: 0.5, short: 0.2, desc: '月初两天轻微涨幅波动，能量不强', note: '观望为主，轻仓参与' },
+    { segment: '阶段2', period: '4/3-5日', name: '明显下跌开始', long: 0.2, short: 1.0, desc: '从3号开始明显下跌，空头主导', note: '极轻仓多，正常做空' },
+    { segment: '阶段3', period: '4/6-8日', name: '月初低点+弱反弹', long: 0.5, short: 0.5, desc: '6号明显低点，7-8号短时间反弹但能量不强', note: '多空交替频繁，延续性不强，多空均轻仓，落袋为安' },
+    { segment: '阶段4', period: '4/9-11日', name: '下插针+震荡', long: 0.5, short: 0.5, desc: '9号下插针，10-11号震荡或横盘', note: '多空交替频繁，延续性不强，多空均轻仓，落袋为安' },
+    { segment: '阶段5', period: '4/12-13日', name: '剧烈波动+震荡', long: 0.5, short: 0.5, desc: '12号开始波动剧烈，上插针后回落更像回踩', note: '多空交替频繁，延续性不强，多空均轻仓，落袋为安' },
+    { segment: '阶段6', period: '4/14日', name: '诱多上插', long: 0.2, short: 1.2, desc: '14号可能明显上插，诱多陷阱', note: '⚠️ 极轻仓多，重仓做空', warning: true },
+    { segment: '阶段7', period: '4/15-18日', name: '持续下跌', long: 0.2, short: 1.0, desc: '14号上插后跌至17-18号', note: '单边下跌，极轻仓多，正常做空' },
+    { segment: '阶段8', period: '4/19-20日', name: '最低点弱反弹', long: 0.3, short: 0.5, desc: '17-18号最低点后弱反弹', note: '力度弱，谨慎参与' },
+    { segment: '阶段9', period: '4/21-22日', name: '突然上插针', long: 0.2, short: 0.8, desc: '21-22号可能突然上插针', note: '⚠️ 不易做多，小心假突破', warning: true },
+    { segment: '阶段10', period: '4/23-24日', name: '震荡过渡', long: 0.3, short: 0.6, desc: '波动过渡，等待方向', note: '降低仓位，观望为主' },
+    { segment: '阶段11', period: '4/25-26日', name: '再次上插针', long: 0.2, short: 0.8, desc: '25-26号再次出现上插针反弹', note: '诱多性质，空为主' },
+    { segment: '阶段12', period: '4/27-30日', name: '回落到月低点', long: 0.3, short: 1.0, desc: '27号后回落，29-30号本月低点', note: '月末持续弱势，做空为主' },
+  ];
+
+  const aprilKeyPoints = {
+    lowest: ['4月17-18日', '4月29-30日'],
+    highest: ['4月2日', '4月11日', '4月14日'],
+    pattern: '先涨后跌，涨幅不多，跌的较多',
+  };
 
 
   const marchContent = {
@@ -132,34 +151,25 @@ export default function ResearchPage() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex gap-2 py-4">
             {months.map((month) => (
-              month.redirect ? (
-                <button
-                  key={month.id}
-                  onClick={() => router.push(month.redirect)}
-                  className="px-6 py-3 rounded-lg font-medium transition bg-red-600 text-white hover:bg-red-700 flex items-center gap-2"
-                >
-                  {lang === 'zh' ? month.label : month.labelEn}
-                  <span className="text-xs opacity-80">(查看完整版)</span>
-                </button>
-              ) : (
-                <button
-                  key={month.id}
-                  onClick={() => month.status === 'published' && setActiveMonth(month.id)}
-                  disabled={month.status !== 'published'}
-                  className={`px-6 py-3 rounded-lg font-medium transition ${
-                    activeMonth === month.id
-                      ? 'bg-blue-600 text-white'
-                      : month.status === 'published'
-                      ? 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                      : 'bg-slate-50 text-slate-400 cursor-not-allowed'
-                  }`}
-                >
-                  {lang === 'zh' ? month.label : month.labelEn}
-                  {month.status === 'upcoming' && (
-                    <span className="ml-2 text-xs">(待更新)</span>
-                  )}
-                </button>
-              )
+              <button
+                key={month.id}
+                onClick={() => month.status === 'published' && setActiveMonth(month.id)}
+                disabled={month.status !== 'published'}
+                className={`px-6 py-3 rounded-lg font-medium transition ${
+                  activeMonth === month.id
+                    ? month.id === 'april'
+                      ? 'bg-red-600 text-white'
+                      : 'bg-blue-600 text-white'
+                    : month.status === 'published'
+                    ? 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                    : 'bg-slate-50 text-slate-400 cursor-not-allowed'
+                }`}
+              >
+                {lang === 'zh' ? month.label : month.labelEn}
+                {month.status === 'upcoming' && (
+                  <span className="ml-2 text-xs">(待更新)</span>
+                )}
+              </button>
             ))}
           </div>
         </div>
@@ -262,6 +272,132 @@ export default function ResearchPage() {
           </article>
         )}
 
+        {activeMonth === 'april' && (
+          <article className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-red-900 to-slate-800 text-white px-8 py-12">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm text-red-400 font-medium">2026年4月</span>
+                <span className="text-xs text-slate-400">更新于 2026-04-02</span>
+              </div>
+              <h1 className="text-3xl font-bold mb-4">四月剧本推演</h1>
+              <p className="text-xl text-slate-300">BTC 月度行情结构分析</p>
+            </div>
+
+            <div className="p-8">
+              {/* 核心判断 */}
+              <div className="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl mb-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="px-3 py-1 bg-red-600 text-white text-sm font-bold rounded">年卦</span>
+                  <h3 className="font-bold text-red-900">四月核心判断</h3>
+                </div>
+                <p className="text-red-800 text-lg">"4月是一个很可能大跌的月份"</p>
+                <p className="text-red-700 mt-2">整体形态：先涨后跌，涨幅不多，跌的较多</p>
+              </div>
+
+              {/* 月卦推演 */}
+              <div className="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-r-xl mb-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="px-3 py-1 bg-amber-600 text-white text-sm font-bold rounded">月卦</span>
+                  <h3 className="font-bold text-amber-900">月卦推演</h3>
+                </div>
+                <p className="text-amber-800">月初两天轻微涨幅波动，从3号开始就会有明显的下跌出现。</p>
+              </div>
+
+              {/* 关键节点 */}
+              <div className="grid md:grid-cols-3 gap-4 mb-8">
+                <div className="bg-white rounded-xl p-5 border-l-4 border-red-600 shadow-sm">
+                  <p className="text-sm text-slate-500 mb-2">本月最低点</p>
+                  <div className="space-y-1">
+                    {aprilKeyPoints.lowest.map((date, idx) => (
+                      <p key={idx} className="text-red-700 font-bold">{date}</p>
+                    ))}
+                  </div>
+                </div>
+                <div className="bg-white rounded-xl p-5 border-l-4 border-green-600 shadow-sm">
+                  <p className="text-sm text-slate-500 mb-2">本月相对高点</p>
+                  <div className="space-y-1">
+                    {aprilKeyPoints.highest.map((date, idx) => (
+                      <p key={idx} className="text-green-700 font-bold">{date}</p>
+                    ))}
+                  </div>
+                </div>
+                <div className="bg-white rounded-xl p-5 border-l-4 border-blue-600 shadow-sm">
+                  <p className="text-sm text-slate-500 mb-2">整体形态</p>
+                  <p className="text-blue-700 font-bold">{aprilKeyPoints.pattern}</p>
+                </div>
+              </div>
+
+              {/* 多空系数表 */}
+              <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm mb-8">
+                <div className="px-6 py-4 bg-slate-50 border-b border-slate-200">
+                  <h3 className="font-bold text-slate-900">多空仓位系数设计</h3>
+                  <p className="text-sm text-slate-500 mt-1">原则：信号全收，仓位调节，风控优先 | 阶段3-5方向不明，多空均轻仓</p>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead className="bg-slate-50 text-slate-600 text-sm">
+                      <tr>
+                        <th className="px-4 py-3 text-left">阶段</th>
+                        <th className="px-4 py-3 text-left">时间</th>
+                        <th className="px-4 py-3 text-left">卦象特征</th>
+                        <th className="px-4 py-3 text-center">做多</th>
+                        <th className="px-4 py-3 text-center">做空</th>
+                        <th className="px-4 py-3 text-left">策略说明</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100">
+                      {aprilCoefficients.map((item, idx) => (
+                        <tr key={idx} className={item.warning ? 'bg-red-50' : ''}>
+                          <td className="px-4 py-3 font-medium">{item.segment}</td>
+                          <td className="px-4 py-3 text-slate-600 whitespace-nowrap">{item.period}</td>
+                          <td className="px-4 py-3">
+                            <div className="font-medium text-slate-900">{item.name}</div>
+                            <div className="text-sm text-slate-500">{item.desc}</div>
+                          </td>
+                          <td className="px-4 py-3 text-center">
+                            <span className={`inline-block w-12 py-1 rounded font-bold ${
+                              item.long >= 0.8 ? 'bg-green-200 text-green-800' :
+                              item.long >= 0.3 ? 'bg-green-100 text-green-700' :
+                              'bg-slate-100 text-slate-500'
+                            }`}>
+                              {item.long}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3 text-center">
+                            <span className={`inline-block w-12 py-1 rounded font-bold ${
+                              item.short >= 1.0 ? 'bg-red-200 text-red-800' :
+                              item.short >= 0.6 ? 'bg-red-100 text-red-700' :
+                              'bg-slate-100 text-slate-500'
+                            }`}>
+                              {item.short}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3 text-sm text-slate-600">
+                            {item.note}
+                            {item.warning && <span className="ml-1 text-red-500">⚠️</span>}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* 策略建议 */}
+              <div className="bg-red-900 text-white rounded-xl p-6">
+                <h3 className="text-xl font-bold mb-4">策略建议</h3>
+                <div className="bg-red-800 rounded-lg p-4 mb-4">
+                  <p className="text-xl font-bold text-red-200">空单作为4月的主要方向</p>
+                </div>
+                <p className="text-red-200">在有正向期望系统的前提下，可适当放大空单的仓位。</p>
+                <div className="mt-4 pt-4 border-t border-red-700">
+                  <p className="text-sm text-red-300">特别警惕：4月14日诱多上插、4月21-22日突然上插针</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        )}
 
       </div>
 
