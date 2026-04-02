@@ -5,8 +5,9 @@ import { translations } from '@/lib/i18n';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-// 固定密码的 SHA-256 摘要（明文是 "baxian2026"，可随时更换）
-const ACCESS_HASH = '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92';
+// 固定密码 SHA-256 摘要（明文：202603 / 202604，可随时更换）
+const MARCH_HASH = '0994a71b9023280041ab0f8aae752721c686a9c815ad7bcc5ebc81fcbc66ab0a';
+const APRIL_HASH = '0d89db834202eddee0cf35f07bdbb6840de449295316166bf2b820ae6d90a0fa';
 
 async function hashInput(input) {
   const encoder = new TextEncoder();
@@ -20,7 +21,7 @@ export default function ResearchPage() {
   const router = useRouter();
   const [lang, setLang] = useState('zh');
   const [activeMonth, setActiveMonth] = useState('march');
-  const [showAccessModal, setShowAccessModal] = useState(false);
+  const [accessModal, setAccessModal] = useState(null); // null | 'march' | 'april'
   const [accessInput, setAccessInput] = useState('');
   const [accessError, setAccessError] = useState(false);
 
@@ -34,8 +35,10 @@ export default function ResearchPage() {
   async function handleAccessSubmit(e) {
     e.preventDefault();
     const inputHash = await hashInput(accessInput);
-    if (inputHash === ACCESS_HASH) {
-      router.push('/review/march-2026');
+    const targetHash = accessModal === 'march' ? MARCH_HASH : APRIL_HASH;
+    const targetPath = accessModal === 'march' ? '/review/march-2026' : '/review/april-2026';
+    if (inputHash === targetHash) {
+      router.push(targetPath);
     } else {
       setAccessError(true);
       setTimeout(() => setAccessError(false), 2000);
@@ -431,31 +434,33 @@ export default function ResearchPage() {
       {/* Footer */}
       <footer className="bg-slate-100 border-t border-slate-200 py-8">
         <div className="max-w-6xl mx-auto px-6 text-center text-slate-500 text-sm">
-          <p>© 2025 时<span
-            onClick={() => setShowAccessModal(true)}
-            className="text-slate-400 select-none cursor-pointer text-xs align-baseline hover:text-blue-400 transition-colors duration-300"
-            style={{ fontSize: '0.7rem', verticalAlign: 'baseline' }}
-            title=""
-          >势量化</span>工作室. 会员专享内容，请勿外传。</p>
+          <p>
+            © <span
+              onClick={() => setAccessModal('march')}
+              className="cursor-pointer hover:text-blue-400 transition-colors duration-300"
+            >2025时势量化工作室</span>. 会员专享内容，请勿外传。
+          </p>
         </div>
       </footer>
 
       {/* 复盘入口密码弹窗 */}
-      {showAccessModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setShowAccessModal(false)}>
+      {accessModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={() => setAccessModal(null)}>
           <div className="bg-white rounded-xl shadow-2xl p-8 w-80 text-center" onClick={e => e.stopPropagation()}>
             <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg className="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
-            <h3 className="text-lg font-bold text-slate-800 mb-2">内部复盘入口</h3>
+            <h3 className="text-lg font-bold text-slate-800 mb-2">
+              {accessModal === 'march' ? '三月复盘' : '四月复盘'} 入口
+            </h3>
             <p className="text-sm text-slate-500 mb-6">输入访问密码</p>
             <form onSubmit={handleAccessSubmit}>
               <input
                 type="password"
                 value={accessInput}
-                onChange={e => setAccessInput(e.target.value)}
+                onChange={e => { setAccessInput(e.target.value); setAccessError(false); }}
                 placeholder="密码"
                 className={`w-full px-4 py-2 border rounded-lg mb-3 text-center focus:outline-none focus:ring-2 focus:ring-blue-400 ${accessError ? 'border-red-400 bg-red-50' : 'border-slate-300'}`}
                 autoFocus
@@ -464,7 +469,7 @@ export default function ResearchPage() {
               <div className="flex gap-2">
                 <button
                   type="button"
-                  onClick={() => setShowAccessModal(false)}
+                  onClick={() => setAccessModal(null)}
                   className="flex-1 px-4 py-2 border border-slate-300 rounded-lg text-slate-600 hover:bg-slate-50 transition"
                 >
                   取消
