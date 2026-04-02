@@ -33,7 +33,7 @@ export default function AprilReviewPage() {
       long: 0.5, 
       short: 0.5, 
       desc: '6号明显低点，7-8号短时间反弹但能量不强',
-      note: '方向不明，多空均轻仓'
+      note: '多空交替频繁，延续性不强，多空均轻仓，落袋为安'
     },
     { 
       segment: '阶段4', 
@@ -42,7 +42,7 @@ export default function AprilReviewPage() {
       long: 0.5, 
       short: 0.5, 
       desc: '9号下插针，10-11号震荡或横盘',
-      note: '方向不明，多空均轻仓'
+      note: '多空交替频繁，延续性不强，多空均轻仓，落袋为安'
     },
     { 
       segment: '阶段5', 
@@ -51,7 +51,7 @@ export default function AprilReviewPage() {
       long: 0.5, 
       short: 0.5, 
       desc: '12号开始波动剧烈，上插针后回落更像回踩',
-      note: '方向不明，多空均轻仓'
+      note: '多空交替频繁，延续性不强，多空均轻仓，落袋为安'
     },
     { 
       segment: '阶段6', 
