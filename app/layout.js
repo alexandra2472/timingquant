@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'ShiShi Quant Studio | 时势量化工作室',
+  title: 'Timingquant | 时势量化实验室',
   description: 'Professional quantitative investment research and training services. 专业的量化投资研究与培训服务。',
 };
 

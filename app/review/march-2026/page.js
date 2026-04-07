@@ -436,7 +436,7 @@ export default function MarchReviewPage() {
       {/* Footer */}
       <footer className="bg-slate-100 border-t border-slate-200 py-8 mt-12">
         <div className="max-w-6xl mx-auto px-6 text-center text-slate-500 text-sm">
-          <p>时势量化工作室 · 三月实战复盘</p>
+          <p>时势量化实验室 · 三月实战复盘</p>
           <p className="mt-1">量化策略 × 六爻剧本 结合研究</p>
         </div>
       </footer>
