@@ -1,7 +1,9 @@
 # 项目记忆
 
 ## 项目概述
-- **项目名称**: 时势量化工作室独立站
+- **项目名称**: 时势量化实验室独立站
+- **品牌名（中文）**: 时势量化实验室
+- **品牌名（英文）**: Timingquant（使用域名形式，不用 ShiShi Quant Studio）
 - **技术栈**: Next.js + Tailwind CSS
 - **部署平台**: Cloudflare Pages (通过 GitHub 自动部署)
 - **仓库**: https://github.com/alexandra2472/timingquant
