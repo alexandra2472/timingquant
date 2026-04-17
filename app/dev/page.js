@@ -17,8 +17,8 @@ export default function HomePage() {
       cta2: '查看研究样本',
     },
     en: {
-      eyebrow: 'Temporal Quantitative Framework',
-      title: 'Studying Market Rhythm,\nStructural Regimes & Risk Exposure',
+      eyebrow: 'A Temporal Quantitative Framework',
+      title: 'For Studying Market Rhythm,\nStructural Regimes & Risk Exposure',
       subtitle: 'Timingquant Lab is focused on building a research framework for identifying market states, observing regime transitions, and managing risk exposure.\n\nOur work is partly inspired by Eastern ideas of time and change, but every output is grounded in structured representation, quantitative validation, and continuous tracking.',
       cta1: 'Explore the Framework',
       cta2: 'View Research Samples',
@@ -40,8 +40,8 @@ export default function HomePage() {
     },
     en: {
       eyebrow: 'Research Perspective',
-      title: 'Not Directional Prediction,\nBut Market-State Identification',
-      desc: 'Timingquant Lab does not approach markets as a simple directional prediction problem. Instead, we focus on structural states and changing risk conditions across time windows. We study questions such as:',
+      title: 'Not Directional Prediction —\nMarket State Identification',
+      desc: 'Timingquant Lab does not approach markets as a simple directional prediction problem.\nInstead, we focus on structural states and changing risk conditions across time windows.\n\nWe study questions such as:',
       questions: [
         'Whether the market is in trend, consolidation, compression, expansion, or transition',
         'Whether risk exposure should be expanded, reduced, or kept defensive',
@@ -60,8 +60,8 @@ export default function HomePage() {
     },
     en: {
       eyebrow: 'Methodological Positioning',
-      title: 'From Temporal Logic to Structured Research',
-      desc: 'Timingquant Lab is partly inspired by Eastern ways of thinking about time, change, and relational dynamics. However, these ideas are not presented as opaque conclusions.\n\nOur core effort is to translate them into an observable, trackable, and reviewable research framework for representing market rhythm, structural states, risk phases, and participation posture.',
+      title: 'From Temporal Logic\nto Structured Research',
+      desc: 'Timingquant Lab is partly inspired by Eastern ways of thinking about time, change, and relational dynamics.\nHowever, these ideas are not presented as opaque conclusions.\n\nOur core effort is to translate them into an observable, trackable, and reviewable research framework for representing market rhythm, structural states, risk phases, and participation posture.',
     },
   };
 
@@ -81,10 +81,10 @@ export default function HomePage() {
     },
     en: {
       eyebrow: 'Use Cases',
-      title: 'Multiple Applications of the Research Framework',
+      title: 'Complementary Applications\nfor Research & Decision-Making',
       cases: [
         { title: 'Market-State Identification', desc: 'Identifying the structural type of the current market' },
-        { title: 'Regime Filter', desc: 'Serving as an auxiliary tool for strategy signal filtering' },
+        { title: 'Regime Filter & Strategy Gating', desc: 'Serving as an auxiliary filter for strategy execution' },
         { title: 'Risk Exposure Management', desc: 'Supporting position adjustment and risk control decisions' },
         { title: 'Regime Transition Monitoring', desc: 'Monitoring transition nodes between market states' },
         { title: 'Macro Rhythm Research', desc: 'Studying tactical windows and rhythm changes' },
@@ -102,8 +102,8 @@ export default function HomePage() {
     },
     en: {
       eyebrow: 'Value Proposition',
-      title: 'Researchable. Trackable. Reviewable.',
-      desc: 'We do not treat markets as mystical objects of unverifiable prediction.\n\nThe goal of Timingquant Lab is to build a research language that can be recorded, compared, and reviewed over time. Any framework with real value should ultimately be expressible, trackable, and testable.',
+      title: 'Researchable.\nTrackable. Reviewable.',
+      desc: 'We do not treat markets as mystical objects of unverifiable prediction.\n\nThe goal of Timingquant Lab is to build a research language that can be recorded, compared, and reviewed over time.\nAny framework with real value should ultimately be expressible, trackable, and testable.',
     },
   };
 
