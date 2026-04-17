@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { dispatchLangChange } from '@/lib/useLang';
 import './globals.css';
 
 const navItems = {
@@ -45,7 +46,8 @@ export default function DevLayout({ children }) {
 
   const handleLangChange = (newLang) => {
     setLang(newLang);
-    localStorage.setItem('dev-lang', newLang);
+    // Update localStorage and dispatch custom event so all pages re-render
+    dispatchLangChange('dev-lang', newLang);
   };
 
   const nav = navItems[lang];
