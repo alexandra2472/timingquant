@@ -23,7 +23,7 @@ export default function SamplesPage() {
             en: 'March exhibited an emotion-driven structure, with concentrated sentiment release in the first half and gradual decay in the second half. The framework successfully identified key turning points and risk windows.',
           },
           tags: ['情绪主导', '诱多陷阱', '仓位调节'],
-          link: '/review/march-2026',
+          link: null,
           linkLabel: '查看三月复盘',
         },
         {
@@ -34,7 +34,7 @@ export default function SamplesPage() {
             en: 'April follows a year-hexagram dominant structure, likely to see an initial rise followed by sustained decline. The hexagram script provides long/short coefficients across 12 phases.',
           },
           tags: ['年卦主导', '多空系数', '风控'],
-          link: '/review/april-2026',
+          link: null,
           linkLabel: '查看四月剧本',
         },
       ],
@@ -55,7 +55,7 @@ export default function SamplesPage() {
             en: 'March exhibited an emotion-driven structure, with concentrated sentiment release in the first half and gradual decay in the second half. The framework successfully identified key turning points and risk windows.',
           },
           tags: ['Sentiment', 'Bull Trap', 'Position'],
-          link: '/review/march-2026',
+          link: null,
           linkLabel: 'View March Review',
         },
         {
@@ -66,7 +66,7 @@ export default function SamplesPage() {
             en: 'April follows a year-hexagram dominant structure, likely to see an initial rise followed by sustained decline. The hexagram script provides long/short coefficients across 12 phases.',
           },
           tags: ['Year Hexagram', 'Long/Short', 'Risk'],
-          link: '/review/april-2026',
+          link: null,
           linkLabel: 'View April Script',
         },
       ],
@@ -138,9 +138,15 @@ export default function SamplesPage() {
                 {m.description[lang]}
               </p>
 
-              <Link href={m.link} className="btn btn-outline" style={{ fontSize: '0.8rem' }}>
-                {m.linkLabel}
-              </Link>
+              {m.link ? (
+                <Link href={m.link} className="btn btn-outline" style={{ fontSize: '0.8rem' }}>
+                  {m.linkLabel}
+                </Link>
+              ) : (
+                <span className="btn btn-outline" style={{ fontSize: '0.8rem', opacity: 0.4, cursor: 'default' }}>
+                  {m.linkLabel}
+                </span>
+              )}
             </div>
           ))}
         </div>
@@ -152,7 +158,7 @@ export default function SamplesPage() {
           <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '1.5rem', lineHeight: 1.8 }}>
             {t.note}
           </p>
-          <Link href="/contact" className="btn btn-primary">
+          <Link href="/dev/contact" className="btn btn-primary">
             {t.cta}
           </Link>
         </div>

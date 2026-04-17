@@ -162,7 +162,7 @@ export default function ResearchPage() {
                 </div>
                 {cat.cta && (
                   <div style={{ marginTop: '1.25rem' }}>
-                    <Link href="/samples" className="btn btn-outline" style={{ fontSize: '0.8rem', padding: '0.5rem 1rem' }}>
+                    <Link href="/dev/samples" className="btn btn-outline" style={{ fontSize: '0.8rem', padding: '0.5rem 1rem' }}>
                       {lang === 'zh' ? '查看样本' : 'View Samples'}
                     </Link>
                   </div>

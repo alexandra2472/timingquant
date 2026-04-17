@@ -7,20 +7,20 @@ import './globals.css';
 
 const navItems = {
   zh: [
-    { label: '首页', href: '/' },
-    { label: '关于', href: '/about' },
-    { label: '方法论', href: '/methodology' },
-    { label: '研究', href: '/research' },
-    { label: '样本', href: '/samples' },
-    { label: '联系', href: '/contact' },
+    { label: '首页', href: '/dev' },
+    { label: '关于', href: '/dev/about' },
+    { label: '方法论', href: '/dev/methodology' },
+    { label: '研究', href: '/dev/research' },
+    { label: '样本', href: '/dev/samples' },
+    { label: '联系', href: '/dev/contact' },
   ],
   en: [
-    { label: 'Home', href: '/' },
-    { label: 'About', href: '/about' },
-    { label: 'Methodology', href: '/methodology' },
-    { label: 'Research', href: '/research' },
-    { label: 'Samples', href: '/samples' },
-    { label: 'Contact', href: '/contact' },
+    { label: 'Home', href: '/dev' },
+    { label: 'About', href: '/dev/about' },
+    { label: 'Methodology', href: '/dev/methodology' },
+    { label: 'Research', href: '/dev/research' },
+    { label: 'Samples', href: '/dev/samples' },
+    { label: 'Contact', href: '/dev/contact' },
   ],
 };
 
@@ -50,7 +50,7 @@ export default function DevLayout({ children }) {
 
   const nav = navItems[lang];
   const brand = brandText[lang];
-  const isHome = pathname === '/';
+  const isHome = pathname === '/dev';
 
   return (
     <html lang={lang === 'zh' ? 'zh-CN' : 'en'}>
@@ -70,7 +70,7 @@ export default function DevLayout({ children }) {
         {/* Navigation */}
         <nav className="nav">
           <div className="nav-inner">
-            <Link href="/" className="nav-brand">
+            <Link href="/dev" className="nav-brand">
               <span>Timingquant</span> Lab
             </Link>
 

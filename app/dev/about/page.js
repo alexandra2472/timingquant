@@ -29,7 +29,7 @@ export default function AboutPage() {
       ],
       note: 'Timingquant Lab 并不试图用抽象话术替代研究，也不把非传统思想直接包装成结论。\n\n我们的目标，是把独特的时间逻辑转化为一种更接近研究语言、机构语言和决策语言的表达方式。',
       cta: '探索方法论',
-      ctaLink: '/methodology',
+      ctaLink: '/dev/methodology',
     },
     en: {
       eyebrow: 'About',
@@ -53,7 +53,7 @@ export default function AboutPage() {
       ],
       note: 'Timingquant Lab does not try to replace research with abstraction, nor does it package nontraditional ideas as conclusions by default.\n\nThe objective is to translate a distinct temporal logic into a language that is closer to research, institutions, and decision-making.',
       cta: 'Explore Methodology',
-      ctaLink: '/methodology',
+      ctaLink: '/dev/methodology',
     },
   };
 

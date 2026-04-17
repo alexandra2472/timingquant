@@ -123,10 +123,10 @@ export default function HomePage() {
           {t.hero.subtitle}
         </p>
         <div className="hero-actions">
-          <Link href="/methodology" className="btn btn-primary">
+          <Link href="/dev/methodology" className="btn btn-primary">
             {t.hero.cta1}
           </Link>
-          <Link href="/samples" className="btn btn-outline">
+          <Link href="/dev/samples" className="btn btn-outline">
             {t.hero.cta2}
           </Link>
         </div>
