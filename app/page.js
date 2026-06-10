@@ -171,43 +171,58 @@ export default function HomePage() {
             <div className="p-8 border border-blue-500/30 rounded-xl bg-blue-500/[0.03] hover:bg-blue-500/[0.08] transition flex flex-col justify-between shadow-[0_0_15px_rgba(59,130,246,0.1)]">
               <div>
                 <div className="flex justify-between mb-6">
-                  <span className="text-[10px] bg-blue-500/20 px-2 py-1 rounded text-blue-400 uppercase font-bold">AI Model</span>
-                  <span className="text-[10px] text-green-400 font-bold uppercase">Live Stats</span>
+                  <span className="text-[10px] bg-blue-500/20 px-2 py-1 rounded text-blue-400 uppercase font-bold">{isZh ? 'AI 2.0 內測' : 'AI Engine v2.0'}</span>
+                  <span className="text-[10px] text-green-400 font-bold uppercase">{isZh ? '實戰數據' : 'Live Results'}</span>
                 </div>
-                <h4 className="font-semibold mb-3 text-sm">
-                  {isZh ? 'AI 驅動時間狀態引擎 v2.0' : 'AI-Driven Engine v2.0'}
+                <h4 className="font-semibold mb-2 text-sm">
+                  {isZh ? 'AI 驅動時間狀態引擎' : 'AI Time-State Engine'}
                 </h4>
-                <p className="text-xs text-gray-300 leading-relaxed font-light mb-4">
-                  {isZh
-                    ? <>將人工符號邏輯遷移至深度學習模型。BTC 日內行情回測準確率達 <span className="text-blue-400 font-bold">64.7%</span>，王牌信號命中率 <span className="text-green-400 font-bold">91.7%</span>。</>
-                    : <>Migrating manual symbolic logic to deep learning. BTC Intraday backtest accuracy reached <span className="text-blue-400 font-bold">64.7%</span>, Alpha Signal accuracy <span className="text-green-400 font-bold">91.7%</span>.</>
-                  }
+                <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-6">
+                  {isZh ? 'BTCUSDT 日內形態回測' : 'BTCUSDT Intraday Pattern Backtest'}
                 </p>
+                <div className="flex gap-8 mb-6">
+                  <div>
+                    <div className="text-4xl font-bold text-blue-400 tracking-tight">64.7%</div>
+                    <div className="text-[10px] text-gray-500 mt-1 uppercase">{isZh ? '日K陰陽 準確率' : 'Daily Candle Accuracy'}</div>
+                  </div>
+                  <div>
+                    <div className="text-4xl font-bold text-emerald-400 tracking-tight">91.7%</div>
+                    <div className="text-[10px] text-gray-500 mt-1 uppercase">{isZh ? '王牌信號命中' : 'Alpha Signal Hit'}</div>
+                  </div>
+                </div>
               </div>
               <a href={`/dashboard?lang=${lang === 'zh-Hant' ? 'zh' : 'en'}`} className="block w-full py-2 border border-blue-500/40 rounded text-center text-[10px] text-blue-400 hover:bg-blue-600 hover:text-white transition uppercase font-bold tracking-widest">
-                {isZh ? '完整回測儀錶盤 →' : 'Full Backtest Dashboard →'}
+                {isZh ? '查看完整回測儀錶盤 →' : 'View Full Backtest Dashboard →'}
               </a>
             </div>
             
             {/* Research 3 */}
-            <div className="p-8 border border-blue-500/20 rounded-xl bg-blue-500/5 relative overflow-hidden flex flex-col justify-between transition hover:bg-blue-500/10">
-              <div className="absolute top-0 right-0 p-2 opacity-10 text-4xl italic font-bold">ALPHA</div>
+            <div className="p-8 border border-white/5 rounded-xl bg-white/[0.02] hover:bg-white/[0.05] transition flex flex-col justify-between">
               <div>
                 <div className="flex justify-between mb-6">
-                  <span className="text-[10px] bg-blue-500/20 px-2 py-1 rounded text-blue-400 uppercase font-bold">{isZh ? '實戰演練' : 'Stress Testing'}</span>
-                  <span className="text-xs text-green-400 font-bold italic">D+25 Data</span>
+                  <span className="text-[10px] bg-white/10 px-2 py-1 rounded text-gray-400 uppercase font-bold">{isZh ? '實戰演練' : 'Stress Testing'}</span>
+                  <span className="text-xs text-blue-400 font-bold italic">D+25 {isZh ? '數據' : 'Data'}</span>
                 </div>
-                <h4 className="font-semibold mb-3 text-sm text-blue-300">
+                <h4 className="font-semibold mb-3 text-sm">
                   {isZh ? '山寨幣 Alpha 實時看板' : 'Altcoin Alpha Dashboard'}
                 </h4>
                 <p className="text-xs text-gray-500 leading-relaxed mb-6 font-light">
                   {isZh
-                    ? '基於 TQ 狀態邏輯的山寨幣合約紙上實盤。點擊下方進入實時動態監測終端。'
-                    : 'Live paper trading across 20+ volatile altcoin futures based on TQ-State logic. Real-time stress testing of risk identification limits.'
+                    ? '基於 TQ 狀態邏輯的山寨幣合約紙上實盤。展示極端波動環境下的風險識別上限。'
+                    : 'Live paper trading across 20+ volatile altcoin futures. Stress-testing the sensitivity of state transitions in low-liquidity environments.'
                   }
                 </p>
+                <div className="mb-2">
+                  <div className="flex justify-between text-[10px] text-gray-500 mb-2">
+                    <span className="uppercase">{isZh ? '當前勝率' : 'Target Win Rate'}</span>
+                    <span className="text-emerald-400 font-bold">70%+</span>
+                  </div>
+                  <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden">
+                    <div className="h-full bg-blue-500 rounded-full" style={{ width: '70%' }}></div>
+                  </div>
+                </div>
               </div>
-              <a href="http://84.247.154.162:8088/monitor_dashboard.html" target="_blank" className="flex items-center justify-between text-[10px] text-blue-400 hover:text-white transition font-bold uppercase tracking-widest">
+              <a href="http://84.247.154.162:8088/monitor_dashboard.html" target="_blank" className="flex items-center justify-between text-[10px] text-blue-400 hover:text-white transition font-bold uppercase tracking-widest mt-4">
                 <span>{isZh ? '進入實時終端' : 'Access Live Terminal'}</span>
                 <span>→</span>
               </a>
