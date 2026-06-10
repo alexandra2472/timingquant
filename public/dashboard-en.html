@@ -203,6 +203,26 @@
 
   /* Animate on scroll placeholder — just fade-in */
   .fade-section { opacity: 1; }
+
+  /* Confusion Matrix — dark theme adapted */
+  .hm-wrap { overflow-x: auto; }
+  .hm-table { border-collapse: separate; border-spacing: 3px; margin: 0 auto; }
+  .hm-table td { padding: 0; border: none; text-align: center; vertical-align: middle; }
+  .hm-table td:hover { background: none; }
+  .hm-cell {
+    width: 52px; height: 52px; line-height: 52px; text-align: center; font-size: 15px; font-weight: 700;
+    border-radius: 6px; color: #fff; display: inline-block;
+  }
+  .hm-cell.diag { border: 2px solid var(--gain); }
+  .hm-cell.zero { background: #1e2d4d; color: var(--dim); }
+  .hm-label-row { font-size: 11px; color: var(--muted); text-align: center; font-weight: 600; padding: 4px 6px !important; white-space: nowrap; }
+  .hm-label-col { font-size: 11px; color: var(--muted); text-align: right; font-weight: 600; padding-right: 8px !important; white-space: nowrap; }
+  .hm-cell-large { width: 70px; height: 70px; line-height: 70px; font-size: 20px; }
+  .hm-cell-sm { width: 44px; height: 44px; line-height: 44px; font-size: 11px; font-weight: 600; }
+  .hm-label-col-sm { font-size: 10px; max-width: 56px; }
+
+  /* Card title inside confusion matrix cards */
+  .card-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; color: var(--text); }
 </style>
 </head>
 <body>
@@ -411,58 +431,68 @@
     </div>
   </div>
 
-  <!-- ====== WHY IT MATTERS ====== -->
+  <!-- ====== CONFUSION MATRICES ====== -->
   <div class="section" style="margin-top:48px;">
     <div class="section-hdr">
-      <h2>Why These Numbers Matter</h2>
+      <h2>Confusion Matrices · Three Prediction Dimensions</h2>
+      <p>Actual results as columns, predictions as rows; diagonal shows hits, color intensity represents frequency</p>
     </div>
+
     <div class="card">
-      <table class="data-table">
-        <thead>
-          <tr><th>Prediction Dimension</th><th>Categories</th><th>Random Baseline</th><th>Model Performance</th><th>Excess Return</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Daily Candlestick</strong></td>
-            <td class="num">2</td>
-            <td class="num">50.0%</td>
-            <td class="num"><span style="color:var(--gain);font-weight:700;">64.7%</span></td>
-            <td class="num"><span style="color:var(--gain);">+14.7pp</span></td>
+      <div class="card-title">Daily Candlestick Confusion Matrix (2×2)</div>
+      <div class="hm-wrap">
+        <table class="hm-table">
+          <tr><td></td><td class="hm-label-row">Actual Bullish</td><td class="hm-label-row">Actual Bearish</td></tr>
+          <tr><td class="hm-label-col">Predict Bullish</td>
+            <td><span class="hm-cell hm-cell-large diag" style="background:rgba(15,223,143,0.85);">37</span></td>
+            <td><span class="hm-cell hm-cell-large" style="background:rgba(255,94,91,0.6);">20</span></td>
           </tr>
-          <tr>
-            <td><strong>Trend Direction (Up/Down/Sideways)</strong></td>
-            <td class="num">3</td>
-            <td class="num">33.3%</td>
-            <td class="num"><span style="color:var(--accent);font-weight:700;">59.5%</span></td>
-            <td class="num"><span style="color:var(--accent);">+26.2pp</span></td>
+          <tr><td class="hm-label-col">Predict Bearish</td>
+            <td><span class="hm-cell hm-cell-large" style="background:rgba(255,94,91,0.6);">21</span></td>
+            <td><span class="hm-cell hm-cell-large diag" style="background:rgba(15,223,143,0.85);">38</span></td>
           </tr>
-          <tr>
-            <td><strong>Intraday 9 Patterns</strong></td>
-            <td class="num">9</td>
-            <td class="num">11.1%</td>
-            <td class="num"><span style="color:var(--gold);font-weight:700;">32.8%</span></td>
-            <td class="num"><span style="color:var(--gold);">+21.7pp</span></td>
+        </table>
+      </div>
+      <div style="margin-top:12px;font-size:12px;color:var(--muted);line-height:1.6;">
+        <strong>Interpretation:</strong> Predict Bearish → Actual Bearish: 38 times, Predict Bullish → Actual Bullish: 37 times. 41 misjudgments: Bullish→Bearish 20 times, Bearish→Bullish 21 times.
+        Bullish precision 37/57≈64.9%, Bearish precision 38/59≈64.4%, roughly equal.
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="card-title">Trend Direction Confusion Matrix (3×3)</div>
+      <div class="hm-wrap">
+        <table class="hm-table">
+          <tr><td></td><td class="hm-label-row">Actual Up</td><td class="hm-label-row">Actual Down</td><td class="hm-label-row">Actual Sideways</td></tr>
+          <tr><td class="hm-label-col">Predict Up</td>
+            <td><span class="hm-cell diag" style="background:rgba(15,223,143,0.75);">30</span></td>
+            <td><span class="hm-cell" style="background:rgba(255,94,91,0.35);">7</span></td>
+            <td><span class="hm-cell" style="background:rgba(240,180,41,0.4);">8</span></td>
           </tr>
-          <tr>
-            <td><strong>Downside Daily Candlestick</strong></td>
-            <td class="num">2</td>
-            <td class="num">50.0%</td>
-            <td class="num"><span style="color:var(--gain);font-weight:700;">70.7%</span></td>
-            <td class="num"><span style="color:var(--gain);">+20.7pp</span></td>
+          <tr><td class="hm-label-col">Predict Down</td>
+            <td><span class="hm-cell" style="background:rgba(255,94,91,0.6);">16</span></td>
+            <td><span class="hm-cell diag" style="background:rgba(15,223,143,0.7);">29</span></td>
+            <td><span class="hm-cell" style="background:rgba(255,94,91,0.35);">7</span></td>
           </tr>
-          <tr>
-            <td><strong>Sideways then Down Bearish→Bearish</strong></td>
-            <td class="num">2</td>
-            <td class="num">50.0%</td>
-            <td class="num"><span style="color:var(--gain);font-weight:700;">91.7%</span></td>
-            <td class="num"><span style="color:var(--gain);">+41.7pp</span></td>
+          <tr><td class="hm-label-col">Predict Sideways</td>
+            <td><span class="hm-cell" style="background:rgba(240,180,41,0.25);">4</span></td>
+            <td><span class="hm-cell" style="background:rgba(240,180,41,0.25);">4</span></td>
+            <td><span class="hm-cell diag" style="background:rgba(15,223,143,0.5);">10</span></td>
           </tr>
-        </tbody>
-      </table>
-      <div style="margin-top:16px;font-size:12px;color:var(--muted);line-height:1.6;">
-        <strong>Core Conclusion:</strong> The model has generated consistent and positive excess accuracy in BTCUSDT daily candlestick prediction.
-        Especially in <strong style="color:var(--gain);">downtrend market environments</strong> (downside 70.7%) and <strong style="color:var(--gain);">specific pattern signals</strong> (Sideways then Down - Bearish 91.7%),
-        performance far exceeds random guessing, forming a reproducible predictive advantage.
+        </table>
+      </div>
+      <div style="margin-top:12px;font-size:12px;color:var(--muted);line-height:1.6;">
+        <strong>Interpretation:</strong> Up precision 30/50=60.0%, Down precision 29/52=55.8%, Sideways precision 10/14=71.4%.
+        Sideways has the highest hit rate despite small sample size. Up→Down misjudgment of 16 times is the most common cross-class error.
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="card-title">Intraday Pattern Confusion Matrix (9×9)</div>
+      <div class="hm-wrap" id="patternHM"></div>
+      <div style="margin-top:12px;font-size:12px;color:var(--muted);line-height:1.6;">
+        <strong>Interpretation:</strong> Diagonal shows correctly predicted days. Sideways then Down (9/14), Narrow Range (10/25), One-Way Down (5/10) have the most concentrated hits.<br>
+        Overall pattern accuracy 32.8%=38/116, far below candlestick 64.7%, because 9-class is much harder than 2-class.
       </div>
     </div>
   </div>
@@ -504,6 +534,43 @@
     </div>`;
   });
   document.getElementById('accBars').innerHTML = html;
+})();
+
+// ---- Generate 9x9 Pattern Confusion Matrix ----
+(function(){
+  const pnLabels = ['Rally','Drop','RallyThenDrop','DropThenRally','FlatThenRally','FlatThenDrop','RallyThenFlat','DropThenFlat','NarrowRange'];
+  const cm = {
+    'Rally': { 'Rally':5,'Drop':0,'RallyThenDrop':2,'DropThenRally':1,'FlatThenRally':2,'FlatThenDrop':0,'RallyThenFlat':2,'DropThenFlat':0,'NarrowRange':1 },
+    'Drop': { 'Rally':1,'Drop':5,'RallyThenDrop':1,'DropThenRally':0,'FlatThenRally':0,'FlatThenDrop':0,'RallyThenFlat':0,'DropThenFlat':0,'NarrowRange':2 },
+    'RallyThenDrop': { 'Rally':1,'Drop':2,'RallyThenDrop':2,'DropThenRally':0,'FlatThenRally':1,'FlatThenDrop':1,'RallyThenFlat':1,'DropThenFlat':0,'NarrowRange':1 },
+    'DropThenRally': { 'Rally':0,'Drop':0,'RallyThenDrop':1,'DropThenRally':2,'FlatThenRally':0,'FlatThenDrop':0,'RallyThenFlat':0,'DropThenFlat':0,'NarrowRange':1 },
+    'FlatThenRally': { 'Rally':2,'Drop':0,'RallyThenDrop':1,'DropThenRally':0,'FlatThenRally':1,'FlatThenDrop':0,'RallyThenFlat':0,'DropThenFlat':0,'NarrowRange':1 },
+    'FlatThenDrop': { 'Rally':0,'Drop':2,'RallyThenDrop':1,'DropThenRally':0,'FlatThenRally':0,'FlatThenDrop':9,'RallyThenFlat':0,'DropThenFlat':0,'NarrowRange':1 },
+    'RallyThenFlat': { 'Rally':1,'Drop':0,'RallyThenDrop':0,'DropThenRally':1,'FlatThenRally':1,'FlatThenDrop':0,'RallyThenFlat':1,'DropThenFlat':0,'NarrowRange':1 },
+    'DropThenFlat': { 'Rally':0,'Drop':0,'RallyThenDrop':0,'DropThenRally':0,'FlatThenRally':0,'FlatThenDrop':1,'RallyThenFlat':0,'DropThenFlat':0,'NarrowRange':0 },
+    'NarrowRange': { 'Rally':3,'Drop':2,'RallyThenDrop':3,'DropThenRally':1,'FlatThenRally':2,'FlatThenDrop':2,'RallyThenFlat':1,'DropThenFlat':1,'NarrowRange':10 }
+  };
+
+  const max = 10;
+  const rows = [];
+  rows.push('<tr><td></td>'+pnLabels.map(l=>'<td class="hm-label-row">'+l+'</td>').join('')+'</tr>');
+  pnLabels.forEach((pred,i)=>{
+    let cells = '';
+    pnLabels.forEach((act,j)=>{
+      const v = cm[pred][act];
+      if(i===j){
+        const a = Math.max(v/max, 0.15);
+        cells += '<td><span class="hm-cell hm-cell-sm diag" style="background:rgba(15,223,143,'+a+');color:#fff;">'+v+'</span></td>';
+      } else if(v===0){
+        cells += '<td><span class="hm-cell hm-cell-sm zero">0</span></td>';
+      } else {
+        const a = Math.min(v/max, 0.7);
+        cells += '<td><span class="hm-cell hm-cell-sm" style="background:rgba(255,94,91,'+a+');color:#fff;">'+v+'</span></td>';
+      }
+    });
+    rows.push('<tr><td class="hm-label-col hm-label-col-sm">'+pred+'</td>'+cells+'</tr>');
+  });
+  document.getElementById('patternHM').innerHTML = '<table class="hm-table">'+rows.join('')+'</table>';
 })();
 </script>
 
