@@ -1,8 +1,0 @@
-{
-  "build": {
-    "command": "npm cache clean --force && npm install --no-package-lock && npm run build",
-    "cwd": ".",
-    "watch_dir": "."
-  },
-  "compatibility_date": "2024-01-01"
-}
