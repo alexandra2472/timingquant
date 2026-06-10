@@ -1,26 +1,30 @@
 'use client'
 
 import { Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 function DashboardContent() {
   const [lang, setLang] = useState('zh')
   const [mounted, setMounted] = useState(false)
-  const searchParams = useSearchParams()
   
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const langParam = searchParams.get('lang')
-      if (langParam) {
+      // 直接从 URL 读取参数
+      const params = new URLSearchParams(window.location.search)
+      const langParam = params.get('lang')
+      
+      if (langParam && (langParam === 'en' || langParam === 'zh')) {
         setLang(langParam)
+        localStorage.setItem('lang', langParam)
       } else {
         const saved = localStorage.getItem('lang')
-        if (saved) setLang(saved)
+        if (saved && (saved === 'en' || saved === 'zh')) {
+          setLang(saved)
+        }
       }
       setMounted(true)
     }
-  }, [searchParams])
+  }, [])
   
   if (!mounted) {
     return <div className="min-h-screen bg-[#060b14] flex items-center justify-center text-gray-400">Loading...</div>
