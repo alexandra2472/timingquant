@@ -6,6 +6,9 @@ export default function HomePage() {
   const [lang, setLang] = useState('zh-Hant')
   
   useEffect(() => {
+    const saved = localStorage.getItem('lang')
+    if (saved) setLang(saved)
+    
     const handleLangChange = () => {
       const saved = localStorage.getItem('lang')
       if (saved) setLang(saved)
