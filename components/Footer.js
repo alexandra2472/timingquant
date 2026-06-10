@@ -1,74 +1,45 @@
-import { MessageCircle, Send, MessageSquare, Video, ExternalLink } from 'lucide-react';
+'use client'
 
-export default function Footer({ t }) {
+import { useState, useEffect } from 'react'
+
+export default function Footer() {
+  const [lang, setLang] = useState('zh-Hant')
+  
+  useEffect(() => {
+    const handleLangChange = () => {
+      const saved = localStorage.getItem('lang')
+      if (saved) setLang(saved)
+    }
+    window.addEventListener('lang-change', handleLangChange)
+    return () => window.removeEventListener('lang-change', handleLangChange)
+  }, [])
+  
+  const isZh = lang === 'zh-Hant'
+  
   return (
-    <footer className="bg-gray-50 border-t border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-          <div className="col-span-1 md:col-span-2">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              {t.hero.title}
-            </h3>
-            {t.footer.description && (
-              <p className="text-gray-600 mb-4">{t.footer.description}</p>
-            )}
-          </div>
-
-          <div>
-            <h4 className="font-semibold text-gray-900 mb-4">{t.footer.quickLinks}</h4>
-            <ul className="space-y-2">
-              <li><a href="#features" className="text-gray-600 hover:text-gray-900">{t.nav.features}</a></li>
-              <li><a href="#products" className="text-gray-600 hover:text-gray-900">{t.nav.products}</a></li>
-              <li><a href="#pricing" className="text-gray-600 hover:text-gray-900">{t.nav.pricing}</a></li>
-              <li><a href="#about" className="text-gray-600 hover:text-gray-900">{t.nav.about}</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-semibold text-gray-900 mb-4">{t.footer.contact}</h4>
-            <ul className="space-y-3">
-              <li className="flex items-center space-x-2 text-gray-600">
-                <MessageCircle size={18} />
-                <span>QQ: 3822532541</span>
-              </li>
-              <li className="flex items-center space-x-2 text-sm">
-                <a href="https://qm.qq.com/q/pFRMK7jgVq" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">加入QQ群</a>
-                <span className="text-gray-400">|</span>
-                <a href="https://wpa.qq.com/addfriend?uin=3822532541&site=qq&menu=yes" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">添加好友</a>
-              </li>
-              <li className="flex items-center space-x-2 text-gray-600">
-                <Send size={18} />
-                <a href="https://discord.gg/pRFmHJfR" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900">Discord Community</a>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-semibold text-gray-900 mb-4">&nbsp;</h4>
-            <ul className="space-y-3">
-              <li className="flex items-center space-x-2 text-gray-600">
-                <MessageSquare size={18} />
-                <span>钉钉: ltfcs0101</span>
-              </li>
-              <li className="flex items-center space-x-2 text-gray-600">
-                <a href="https://ibb.co/8ns4T80D" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 font-medium">公众号: 加密生存营</a>
-              </li>
-              <li className="flex items-center space-x-2 text-gray-600">
-                <Video size={18} />
-                <a href="https://channels.weixin.qq.com/profile.html?page=1&scene=2&src=qr&weixinPublic号=GZH_SGYC" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900">视频号: 仙哥财经</a>
-              </li>
-              <li className="flex items-center space-x-2 text-gray-600">
-                <ExternalLink size={18} />
-                <a href="https://x.com/Aurexian" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900">X: @Aurex仙哥</a>
-              </li>
-            </ul>
-          </div>
+    <footer id="contact" className="py-24 px-10 border-t border-white/10 text-center">
+      <h2 className="text-2xl mb-8 font-tracking uppercase tracking-widest">
+        {isZh ? '準備好開始影子評估 (Shadow Evaluation) 嗎？' : 'Ready for a Shadow Evaluation?'}
+      </h2>
+      <p className="text-gray-500 mb-12 max-w-lg mx-auto text-sm font-light italic leading-relaxed">
+        {isZh 
+          ? '在您的現有流程中嵌入一層智能狀態判定，而非替代它。為合資格機構提供 30-45 天的影子評估服務。'
+          : 'Add a layer of intelligent state identification to your existing process, rather than replacing it. 30-45 day Shadow Evaluation available for qualified institutions.'
+        }
+      </p>
+      <button className="bg-blue-600 hover:bg-blue-500 text-white px-10 py-4 rounded-full text-sm font-semibold transition shadow-lg shadow-blue-500/20 uppercase tracking-widest">
+        {isZh ? '申請 Access 入口' : 'Request Access'}
+      </button>
+      
+      <div className="mt-32 flex flex-col items-center">
+        <div className="text-[10px] text-gray-600 space-y-2 max-w-2xl font-light">
+          <p className="font-bold uppercase tracking-widest">TimingQuant 是專業級「時間狀態情報層」基礎設施。</p>
+          <p className="opacity-50 uppercase tracking-tighter">Disclaimer: Not investment advice. For institutional research purposes only. Risk Intelligence only.</p>
         </div>
-
-        <div className="border-t border-gray-200 mt-8 pt-8 text-center text-gray-500">
-          {t.footer.copyright}
+        <div className="mt-10 text-[10px] uppercase tracking-widest text-gray-800">
+          © 2026 TimingQuant. Current Date: 06/10/2026.
         </div>
       </div>
     </footer>
-  );
+  )
 }

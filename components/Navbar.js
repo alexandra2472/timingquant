@@ -1,98 +1,46 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { Menu, X, Globe } from 'lucide-react';
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
-export default function Navbar({ t, lang, setLang }) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const navItems = [
-    { key: 'home', href: '#' },
-    { key: 'products', href: '#products' },
-    { key: 'cases', href: '#cases' },
-    { key: 'pricing', href: '#pricing' },
-    { key: 'about', href: '#about' },
-    { key: 'research', href: '/research' },
-  ];
-
+export default function Navbar() {
+  const [lang, setLang] = useState('zh-Hant')
+  
+  useEffect(() => {
+    const saved = localStorage.getItem('lang')
+    if (saved) setLang(saved)
+  }, [])
+  
   const toggleLang = () => {
-    const newLang = lang === 'en' ? 'zh' : 'en';
-    setLang(newLang);
-  };
-
+    const newLang = lang === 'zh-Hant' ? 'en' : 'zh-Hant'
+    setLang(newLang)
+    localStorage.setItem('lang', newLang)
+    window.dispatchEvent(new Event('lang-change'))
+  }
+  
+  const isZh = lang === 'zh-Hant'
+  
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <Link href="/" className="text-xl font-semibold text-gray-900">
-            {t.hero.title}
-          </Link>
-
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.key}
-                href={item.href}
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                {t.nav[item.key]}
-              </Link>
-            ))}
-            <button
-              onClick={toggleLang}
-              className="flex items-center space-x-1 text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              <Globe size={18} />
-              <span className="text-sm">{lang === 'en' ? '中文' : 'EN'}</span>
-            </button>
-            <Link
-              href="#pricing"
-              className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
-            >
-              {t.nav.joinNow}
-            </Link>
-          </div>
-
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
+    <nav className="flex justify-between items-center px-10 py-6 border-b border-white/10 sticky top-0 bg-black/50 backdrop-blur-md z-50">
+      <div className="text-xl font-bold tracking-tighter italic">
+        TIMING<span className="text-blue-500 underline decoration-2 underline-offset-4">QUANT</span>
       </div>
-
-      {isOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100">
-          <div className="px-4 py-4 space-y-3">
-            {navItems.map((item) => (
-              <Link
-                key={item.key}
-                href={item.href}
-                className="block text-gray-600 hover:text-gray-900 py-2"
-                onClick={() => setIsOpen(false)}
-              >
-                {t.nav[item.key]}
-              </Link>
-            ))}
-            <button
-              onClick={toggleLang}
-              className="flex items-center space-x-1 text-gray-600 py-2"
-            >
-              <Globe size={18} />
-              <span>{lang === 'en' ? '切换中文' : 'Switch to English'}</span>
-            </button>
-            <Link
-              href="#pricing"
-              className="block bg-black text-white px-4 py-2 rounded-lg text-center"
-              onClick={() => setIsOpen(false)}
-            >
-              {t.nav.joinNow}
-            </Link>
-          </div>
-        </div>
-      )}
+      
+      <div className="hidden md:flex space-x-8 text-sm text-gray-400 font-tracking">
+        <a href="#philosophy" className="hover:text-white transition">{isZh ? '核心方法論' : 'Philosophy'}</a>
+        <a href="#solutions" className="hover:text-white transition">{isZh ? '解決方案' : 'Solutions'}</a>
+        <a href="#lab" className="hover:text-white transition">{isZh ? 'TQ 實驗室' : 'TQ Lab'}</a>
+        <a href="#horizon" className="hover:text-white transition">{isZh ? '未來版圖' : 'Horizon'}</a>
+      </div>
+      
+      <div className="flex items-center gap-4">
+        <button onClick={toggleLang} className="px-3 py-1 border border-white/20 rounded text-xs hover:border-white/40 transition">
+          {isZh ? 'EN' : '中文'}
+        </button>
+        <a href="#contact" className="px-5 py-2 bg-white text-black text-sm font-semibold rounded-full hover:bg-gray-200 transition">
+          {isZh ? 'Shadow Evaluation 申請' : 'Shadow Evaluation Access'}
+        </a>
+      </div>
     </nav>
-  );
+  )
 }
