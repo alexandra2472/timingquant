@@ -9,7 +9,6 @@ function DashboardContent() {
   
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      // 直接从 URL 读取参数
       const params = new URLSearchParams(window.location.search)
       const langParam = params.get('lang')
       
@@ -41,6 +40,7 @@ function DashboardContent() {
         </a>
       </div>
       <iframe 
+        key={lang}
         src={src} 
         className="w-full" 
         style={{ height: 'calc(100vh - 60px)' }}
