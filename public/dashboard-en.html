@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BTCUSDT Intraday Prediction Model · Backtest Showcase</title>
+<style>
+  :root {
+    --bg: #060b14;
+    --surface: #0c1226;
+    --card: #111827;
+    --card-hover: #161e33;
+    --border: #1e2d4d;
+    --border-glow: #2d4a7a;
+    --text: #e2e8f0;
+    --muted: #8892b0;
+    --dim: #5a6680;
+    --gain: #0fdf8f;
+    --gain-glow: rgba(15,223,143,0.12);
+    --loss: #ff5e5b;
+    --accent: #5b9cf5;
+    --accent-glow: rgba(91,156,245,0.15);
+    --gold: #f0b429;
+    --gold-glow: rgba(240,180,41,0.12);
+  }
+  * { box-sizing: border-box; margin:0; padding:0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    font-size: 14px; color: var(--text); background: var(--bg);
+    line-height:1.6; -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(91,156,245,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 80% 40%, rgba(15,223,143,0.04) 0%, transparent 60%);
+  }
+
+  .container { max-width: 1040px; margin:0 auto; padding: 32px 20px 64px; }
+
+  /* Hero */
+  .hero { text-align: center; padding: 48px 0 40px; position: relative; }
+  .hero-badge {
+    display: inline-block; padding: 4px 16px; border-radius: 20px;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.5px;
+    background: rgba(91,156,245,0.1); color: var(--accent);
+    border: 1px solid rgba(91,156,245,0.2); margin-bottom: 20px;
+  }
+  .hero h1 { font-size: 36px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
+  .hero h1 .highlight { background: linear-gradient(135deg, #5b9cf5 0%, #0fdf8f 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero .sub { font-size: 16px; color: var(--muted); max-width: 520px; margin: 0 auto 36px; }
+
+  .hero-stat {
+    display: inline-flex; flex-direction: column; align-items: center;
+    padding: 28px 44px; border-radius: 16px;
+    background: var(--card); border:1px solid var(--border);
+    position: relative; overflow: hidden;
+  }
+  .hero-stat::before {
+    content: ''; position: absolute; inset: -1px; border-radius: 16px;
+    background: linear-gradient(135deg, rgba(91,156,245,0.3), rgba(15,223,143,0.3));
+    z-index: -1; filter: blur(8px); opacity: 0.6;
+  }
+  .hero-stat .big-number { font-size: 72px; font-weight: 800; line-height: 1; letter-spacing: -2px; }
+  .hero-stat .big-number.gradient { background: linear-gradient(180deg, #fff 20%, #5b9cf5 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero-stat .big-label { font-size: 14px; color: var(--muted); margin-top: 6px; letter-spacing: 0.5px; }
+  .hero-stat .big-sub { font-size: 13px; color: var(--dim); margin-top: 2px; }
+
+  /* Hero detail row */
+  .hero-detail-row { display: flex; justify-content: center; gap: 40px; margin-top: 24px; flex-wrap: wrap; }
+  .hero-detail { text-align: center; }
+  .hero-detail .num { font-size: 22px; font-weight: 700; }
+  .hero-detail .num.gain { color: var(--gain); }
+  .hero-detail .num.accent { color: var(--accent); }
+  .hero-detail .num.gold { color: var(--gold); }
+  .hero-detail .lbl { font-size: 11px; color: var(--dim); margin-top: 2px; }
+
+  /* Section */
+  .section { margin-bottom: 48px; }
+  .section-hdr { margin-bottom: 20px; }
+  .section-hdr h2 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+  .section-hdr p { font-size: 13px; color: var(--muted); }
+
+  /* Cards */
+  .card-grid { display: grid; gap: 16px; }
+  .card-grid.col2 { grid-template-columns: 1fr 1fr; }
+  .card-grid.col3 { grid-template-columns: 1fr 1fr 1fr; }
+  .card-grid.col4 { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 780px) { .card-grid.col2,.card-grid.col3,.card-grid.col4 { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .card:hover { border-color: var(--border-glow); box-shadow: 0 0 24px rgba(91,156,245,0.06); }
+  .card.accent-card { border-color: rgba(91,156,245,0.25); background: linear-gradient(135deg, #111827 0%, rgba(91,156,245,0.04) 100%); }
+  .card.gain-card { border-color: rgba(15,223,143,0.25); background: linear-gradient(135deg, #111827 0%, rgba(15,223,143,0.04) 100%); }
+  .card.gold-card { border-color: rgba(240,180,41,0.25); background: linear-gradient(135deg, #111827 0%, rgba(240,180,41,0.04) 100%); }
+
+  .card-label { font-size: 11px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .card-label.accent { color: var(--accent); }
+  .card-label.gain { color: var(--gain); }
+  .card-label.gold { color: var(--gold); }
+
+  /* KPI inside card */
+  .kpi-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
+  .kpi-value { font-size: 38px; font-weight: 800; line-height: 1; }
+  .kpi-unit { font-size: 14px; color: var(--muted); }
+  .kpi-compare { font-size: 12px; color: var(--dim); }
+  .kpi-edge { font-size: 12px; color: var(--gain); font-weight: 600; margin-top: 4px; }
+
+  /* Bar for vs-baseline */
+  .vs-bar-wrap { margin-top: 12px; }
+  .vs-bar { height: 6px; border-radius: 3px; position: relative; margin-bottom: 6px; }
+  .vs-bar.bg { background: #1e2d4d; }
+  .vs-bar .fill { height: 100%; border-radius: 3px; position: absolute; left: 0; top: 0; }
+  .vs-bar .fill.accent-fill { background: linear-gradient(90deg, #5b9cf5, #0fdf8f); }
+  .vs-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--dim); }
+
+  /* Spotlight card */
+  .spotlight {
+    display: grid; grid-template-columns: 1fr 1.6fr; gap: 28px; align-items: center;
+  }
+  @media (max-width: 720px) { .spotlight { grid-template-columns: 1fr; } }
+  .spotlight-left { text-align: center; }
+  .spotlight-ring {
+    width: 140px; height: 140px; border-radius: 50%; margin: 0 auto 12px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: conic-gradient(#0fdf8f 0deg 283deg, #1e2d4d 283deg 360deg);
+    position: relative;
+  }
+  .spotlight-ring::after {
+    content: ''; position: absolute; inset: 8px; border-radius: 50%;
+    background: var(--card);
+  }
+  .spotlight-ring .inner-num { font-size: 36px; font-weight: 800; color: var(--gain); position: relative; z-index: 1; }
+  .spotlight-ring .inner-lbl { font-size: 11px; color: var(--muted); position: relative; z-index: 1; }
+  .spotlight-right h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+  .spotlight-right p { font-size: 13px; color: var(--muted); margin-bottom: 12px; line-height: 1.7; }
+  .spotlight-metrics { display: flex; gap: 24px; flex-wrap: wrap; }
+  .spotlight-metric { text-align: center; }
+  .spotlight-metric .val { font-size: 28px; font-weight: 800; }
+  .spotlight-metric .val.gain { color: var(--gain); }
+  .spotlight-metric .lbl { font-size: 11px; color: var(--dim); }
+
+  /* Accuracy bar chart */
+  .acc-bars { display: flex; flex-direction: column; gap: 8px; }
+  .acc-bar-row { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+  .acc-bar-label { width: 80px; text-align: right; color: var(--muted); flex-shrink: 0; }
+  .acc-bar-track { flex:1; height: 22px; background: #1e2d4d; border-radius: 4px; position: relative; overflow: hidden; }
+  .acc-bar-fill { height: 100%; border-radius: 4px; position: absolute; left: 0; top: 0; display: flex; align-items: center; padding-left: 10px; font-size: 12px; font-weight: 700; transition: width 0.8s ease; }
+  .acc-bar-fill.hi { background: linear-gradient(90deg, rgba(15,223,143,0.7), rgba(15,223,143,0.9)); color: #fff; }
+  .acc-bar-fill.mid { background: linear-gradient(90deg, rgba(240,180,41,0.6), rgba(240,180,41,0.8)); color: #fff; }
+  .acc-bar-fill.lo { background: linear-gradient(90deg, rgba(255,94,91,0.5), rgba(255,94,91,0.7)); color: #fff; }
+  .acc-bar-val { width: 40px; font-weight: 700; font-size: 12px; flex-shrink: 0; }
+
+  /* Monthly stability */
+  .month-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media (max-width: 600px) { .month-grid { grid-template-columns: 1fr 1fr; } }
+  .month-card {
+    text-align: center; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px 12px;
+  }
+  .month-card .mo { font-size: 12px; color: var(--dim); font-weight: 600; }
+  .month-card .acc { font-size: 28px; font-weight: 800; margin: 4px 0; }
+  .month-card .acc.good { color: var(--gain); }
+  .month-card .acc.ok { color: var(--accent); }
+  .month-card .detail { font-size: 11px; color: var(--dim); }
+
+  /* Win streak visual */
+  .streak-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: center; }
+  .streak-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    display: inline-block; margin: 1px;
+  }
+  .streak-dot.win { background: var(--gain); }
+  .streak-dot.loss { background: rgba(255,94,91,0.3); }
+
+  /* Footer */
+  .footer-note {
+    margin-top: 48px; padding: 20px 24px; border-radius: 10px;
+    background: var(--surface); border: 1px solid var(--border);
+    font-size: 12px; color: var(--dim); line-height: 1.7;
+    text-align: center;
+  }
+
+  /* Divider */
+  .divider { border: none; border-top:1px solid var(--border); margin: 40px 0; }
+
+  /* Table */
+  .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .data-table th { text-align: left; padding: 8px 12px; font-size: 11px; font-weight: 600; color: var(--dim); border-bottom: 1px solid var(--border); text-transform: uppercase; letter-spacing: 0.5px; }
+  .data-table td { padding: 8px 12px; border-bottom: 1px solid rgba(30,45,77,0.5); }
+  .data-table tr:hover td { background: rgba(91,156,245,0.03); }
+  .data-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; }
+  .tag-up { background: rgba(15,223,143,0.12); color: var(--gain); }
+  .tag-down { background: rgba(255,94,91,0.12); color: var(--loss); }
+  .tag-flat { background: rgba(240,180,41,0.12); color: var(--gold); }
+  .tag-star { background: rgba(91,156,245,0.12); color: var(--accent); }
+
+  .text-gain { color: var(--gain); }
+  .text-accent { color: var(--accent); }
+  .text-gold { color: var(--gold); }
+
+  /* Animate on scroll placeholder — just fade-in */
+  .fade-section { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ====== HERO ====== -->
+  <div class="hero">
+    <div class="hero-badge">BTCUSDT · Bayesian Prediction Model · V1 Backtest</div>
+    <h1>Daily Candlestick Direction Accuracy <span class="highlight">64.7%</span></h1>
+    <p class="sub">Based on intraday pattern classification and ATR adaptive threshold, consistently outperforming random baseline over 116 trading days</p>
+
+    <div class="hero-stat">
+      <div class="big-number gradient">64.7%</div>
+      <div class="big-label">Daily Candlestick Direction Accuracy</div>
+      <div class="big-sub">116 / 116 trading days · 2026.02 — 2026.05</div>
+    </div>
+
+    <div class="hero-detail-row">
+      <div class="hero-detail">
+        <div class="num gain">+14.7pp</div>
+        <div class="lbl">Excess Return vs 50% Random Baseline</div>
+      </div>
+      <div class="hero-detail">
+        <div class="num accent">59.5%</div>
+        <div class="lbl">3-Class Direction Accuracy (vs 33%)</div>
+      </div>
+      <div class="hero-detail">
+        <div class="num gold">11 days</div>
+        <div class="lbl">Longest Consecutive Hit Streak</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ====== EDGE: Three Trend Comparison ====== -->
+  <div class="section">
+    <div class="section-hdr">
+      <h2>Better at Predicting Downside: Trend Classification Accuracy</h2>
+      <p>After classifying 9 patterns into uptrend/downtrend/sideways categories, model performance varies significantly across market environments</p>
+    </div>
+
+    <div class="card-grid col3">
+      <!-- Downside — strongest -->
+      <div class="card gain-card">
+        <div class="card-label gain">Strongest Signal</div>
+        <div class="kpi-row">
+          <span class="kpi-value text-gain">70.7%</span>
+          <span class="kpi-unit">Downside YY</span>
+        </div>
+        <div class="kpi-edge">▲ +20.7pp vs Random</div>
+        <div class="kpi-compare" style="margin-top:8px;">41 predictions · 29 hits</div>
+        <div class="vs-bar-wrap" style="margin-top:12px;">
+          <div class="vs-bar bg"><div class="fill accent-fill" style="width:70.7%;"></div></div>
+          <div class="vs-labels"><span>Model 70.7%</span><span>Random 50%</span></div>
+        </div>
+        <div style="margin-top:10px;font-size:12px;color:var(--dim);">
+          Bearish→Bearish precision <span style="color:var(--gain);font-weight:700;">71.9%</span> (23/32)
+        </div>
+      </div>
+
+      <!-- Upside -->
+      <div class="card accent-card">
+        <div class="card-label accent">Stable Signal</div>
+        <div class="kpi-row">
+          <span class="kpi-value text-accent">62.0%</span>
+          <span class="kpi-unit">Upside YY</span>
+        </div>
+        <div class="kpi-edge" style="color:var(--accent);">▲ +12.0pp vs Random</div>
+        <div class="kpi-compare" style="margin-top:8px;">50 predictions · 31 hits</div>
+        <div class="vs-bar-wrap" style="margin-top:12px;">
+          <div class="vs-bar bg"><div class="fill" style="width:62%;background:linear-gradient(90deg,#5b9cf5,#8892b0);"></div></div>
+          <div class="vs-labels"><span>Model 62%</span><span>Random 50%</span></div>
+        </div>
+        <div style="margin-top:10px;font-size:12px;color:var(--dim);">
+          Bullish→Bullish precision <span style="color:var(--accent);font-weight:700;">62.8%</span> (27/43)
+        </div>
+      </div>
+
+      <!-- Sideways -->
+      <div class="card">
+        <div class="card-label gold">To Be Improved</div>
+        <div class="kpi-row">
+          <span class="kpi-value text-gold">60.0%</span>
+          <span class="kpi-unit">Sideways YY</span>
+        </div>
+        <div class="kpi-edge" style="color:var(--gold);">▲ +10.0pp vs Random</div>
+        <div class="kpi-compare" style="margin-top:8px;">25 predictions · 15 hits</div>
+        <div class="vs-bar-wrap" style="margin-top:12px;">
+          <div class="vs-bar bg"><div class="fill" style="width:60%;background:linear-gradient(90deg,#f0b429,#8892b0);"></div></div>
+          <div class="vs-labels"><span>Model 60%</span><span>Random 50%</span></div>
+        </div>
+        <div style="margin-top:10px;font-size:12px;color:var(--dim);">
+          Sideways candles have ambiguous direction, limited accuracy improvement
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== SPOTLIGHT: Sideways then Down ====== -->
+  <div class="section">
+    <div class="section-hdr">
+      <h2>Ace Signal: Sideways then Down</h2>
+      <p>The most informative single-pattern signal in the entire sample — 14 predictions, YY accuracy far above overall mean</p>
+    </div>
+
+    <div class="card gain-card">
+      <div class="spotlight">
+        <div class="spotlight-left">
+          <div class="spotlight-ring">
+            <div class="inner-num">78.6%</div>
+            <div class="inner-lbl">YY Accuracy</div>
+          </div>
+          <div style="font-size:12px;color:var(--dim);">14 predictions · 11 hits</div>
+        </div>
+        <div class="spotlight-right">
+          <h3>When model says "Sideways then Down + Bearish Candle", it's almost always bearish</h3>
+          <p>
+            In 14 "Sideways then Down" predictions, 12 predicted bearish candles — <span style="color:#0fdf8f;font-weight:700;">11 hit, Bearish→Bearish precision as high as 91.7%</span>.
+            This means whenever you see this signal, there's over 90% probability of a bearish close. This is the most reliable judgment in the entire model.
+          </p>
+          <div class="spotlight-metrics">
+            <div class="spotlight-metric">
+              <div class="val gain">91.7%</div>
+              <div class="lbl">Bearish→Bearish Precision</div>
+            </div>
+            <div class="spotlight-metric">
+              <div class="val" style="color:var(--accent);">11 / 12</div>
+              <div class="lbl">Bearish Prediction Hit Rate</div>
+            </div>
+            <div class="spotlight-metric">
+              <div class="val" style="color:var(--gold);">9 / 14</div>
+              <div class="lbl">Intraday Pattern Hit</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== 9 Patterns Leaderboard ====== -->
+  <div class="section">
+    <div class="section-hdr">
+      <h2>Nine Patterns Daily Candlestick Accuracy Leaderboard</h2>
+      <p>From 78.6% to 53.8%, each pattern's accuracy forms a clear梯队. Green = Strong signal, Orange = Medium, Red = Weak signal</p>
+    </div>
+
+    <div class="card">
+      <div class="acc-bars" id="accBars"></div>
+    </div>
+  </div>
+
+  <!-- ====== Stability Proof ====== -->
+  <div class="section" style="margin-top: 48px;">
+    <div class="section-hdr">
+      <h2>Full-Cycle Stability</h2>
+      <p>116 days across 4 months, monthly accuracy stable between 58%~71%, no single month fell below random baseline</p>
+    </div>
+
+    <!-- Monthly -->
+    <div class="month-grid" style="margin-bottom: 24px;">
+      <div class="month-card">
+        <div class="mo">February 2026</div>
+        <div class="acc good">71.4%</div>
+        <div class="detail">20/28 hits · Best month</div>
+      </div>
+      <div class="month-card">
+        <div class="mo">March 2026</div>
+        <div class="acc ok">58.1%</div>
+        <div class="detail">18/31 hits · Difficult month</div>
+      </div>
+      <div class="month-card">
+        <div class="mo">April 2026</div>
+        <div class="acc ok">63.3%</div>
+        <div class="detail">19/30 hits</div>
+      </div>
+      <div class="month-card">
+        <div class="mo">May 2026</div>
+        <div class="acc ok">66.7%</div>
+        <div class="detail">18/27 hits · Steady recovery</div>
+      </div>
+    </div>
+
+    <!-- Win streak -->
+    <div class="card">
+      <div class="card-label gain" style="margin-bottom:12px;">Reliability Verification</div>
+      <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+        <div style="text-align:center;">
+          <div style="font-size:44px;font-weight:800;color:var(--gain);">11</div>
+          <div style="font-size:12px;color:var(--dim);">Longest Consecutive Hits (days)</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:44px;font-weight:800;color:var(--loss);">4</div>
+          <div style="font-size:12px;color:var(--dim);">Longest Consecutive Misses (days)</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:44px;font-weight:800;color:var(--accent);">2.75</div>
+          <div style="font-size:12px;color:var(--dim);">Win/Miss Ratio</div>
+        </div>
+        <div style="flex:1;min-width:180px;font-size:12px;color:var(--muted);line-height:1.6;">
+          Win streaks are much longer than miss streaks, indicating the model's hits have a clustering effect in time —<br>
+          Accurate periods are concentrated, misses are scattered, which is exactly the statistical特征 expected from a consistent strategy.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== WHY IT MATTERS ====== -->
+  <div class="section" style="margin-top:48px;">
+    <div class="section-hdr">
+      <h2>Why These Numbers Matter</h2>
+    </div>
+    <div class="card">
+      <table class="data-table">
+        <thead>
+          <tr><th>Prediction Dimension</th><th>Categories</th><th>Random Baseline</th><th>Model Performance</th><th>Excess Return</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Daily Candlestick</strong></td>
+            <td class="num">2</td>
+            <td class="num">50.0%</td>
+            <td class="num"><span style="color:var(--gain);font-weight:700;">64.7%</span></td>
+            <td class="num"><span style="color:var(--gain);">+14.7pp</span></td>
+          </tr>
+          <tr>
+            <td><strong>Trend Direction (Up/Down/Sideways)</strong></td>
+            <td class="num">3</td>
+            <td class="num">33.3%</td>
+            <td class="num"><span style="color:var(--accent);font-weight:700;">59.5%</span></td>
+            <td class="num"><span style="color:var(--accent);">+26.2pp</span></td>
+          </tr>
+          <tr>
+            <td><strong>Intraday 9 Patterns</strong></td>
+            <td class="num">9</td>
+            <td class="num">11.1%</td>
+            <td class="num"><span style="color:var(--gold);font-weight:700;">32.8%</span></td>
+            <td class="num"><span style="color:var(--gold);">+21.7pp</span></td>
+          </tr>
+          <tr>
+            <td><strong>Downside Daily Candlestick</strong></td>
+            <td class="num">2</td>
+            <td class="num">50.0%</td>
+            <td class="num"><span style="color:var(--gain);font-weight:700;">70.7%</span></td>
+            <td class="num"><span style="color:var(--gain);">+20.7pp</span></td>
+          </tr>
+          <tr>
+            <td><strong>Sideways then Down Bearish→Bearish</strong></td>
+            <td class="num">2</td>
+            <td class="num">50.0%</td>
+            <td class="num"><span style="color:var(--gain);font-weight:700;">91.7%</span></td>
+            <td class="num"><span style="color:var(--gain);">+41.7pp</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top:16px;font-size:12px;color:var(--muted);line-height:1.6;">
+        <strong>Core Conclusion:</strong> The model has generated consistent and positive excess accuracy in BTCUSDT daily candlestick prediction.
+        Especially in <strong style="color:var(--gain);">downtrend market environments</strong> (downside 70.7%) and <strong style="color:var(--gain);">specific pattern signals</strong> (Sideways then Down - Bearish 91.7%),
+        performance far exceeds random guessing, forming a reproducible predictive advantage.
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== FOOTER ====== -->
+  <div class="footer-note">
+    ⚠️ The above content is generated by the Bayesian prediction model based on historical backtest data, for reference only, and does not constitute any investment advice or trading recommendations.<br>
+    Backtest performance does not represent future results. Investment involves risks, decisions require caution.<br>
+    Backtest Period: 2026.02.01 — 2026.05.27 · Data Source: Binance Public API · V1 Classification Scheme (ATR Adaptive Threshold)
+  </div>
+
+</div>
+
+<script>
+// ---- Generate accuracy bars ----
+(function(){
+  const patterns = [
+    {name:'Sideways then Down', yy:78.6, group:'Downside', cls:'hi',   n:14, tag:'tag-down'},
+    {name:'Down then Sideways', yy:75.0, group:'Downside', cls:'hi',   n:4,  tag:'tag-down'},
+    {name:'Up then Down', yy:69.2, group:'Downside', cls:'mid',  n:13, tag:'tag-down'},
+    {name:'Down then Up', yy:66.7, group:'Upside', cls:'mid',  n:9,  tag:'tag-up'},
+    {name:'Unilateral Up', yy:66.7, group:'Upside', cls:'mid',  n:21, tag:'tag-up'},
+    {name:'Unilateral Down', yy:60.0, group:'Downside', cls:'lo',   n:10, tag:'tag-down'},
+    {name:'Narrow Range', yy:60.0, group:'Sideways', cls:'lo',   n:25, tag:'tag-flat'},
+    {name:'Up then Sideways', yy:57.1, group:'Upside', cls:'lo',   n:7,  tag:'tag-up'},
+    {name:'Sideways then Up', yy:53.8, group:'Upside', cls:'lo',   n:13, tag:'tag-up'}
+  ];
+
+  let html = '';
+  patterns.forEach(p => {
+    const tagClass = p.group==='Downside'?'tag-down':p.group==='Upside'?'tag-up':'tag-flat';
+    html += `<div class="acc-bar-row">
+      <span class="acc-bar-label">${p.name}</span>
+      <span class="tag ${tagClass}">${p.group}</span>
+      <span style="font-size:11px;color:var(--dim);width:28px;">n=${p.n}</span>
+      <div class="acc-bar-track">
+        <div class="acc-bar-fill ${p.cls}" style="width:${p.yy}%;">${p.yy}%</div>
+      </div>
+    </div>`;
+  });
+  document.getElementById('accBars').innerHTML = html;
+})();
+</script>
+
+</body>
+</html>

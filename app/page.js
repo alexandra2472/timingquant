@@ -181,7 +181,7 @@ export default function HomePage() {
                   }
                 </p>
               </div>
-              <a href="/dashboard" className="block w-full py-2 border border-blue-500/40 rounded text-center text-[10px] text-blue-400 hover:bg-blue-600 hover:text-white transition uppercase font-bold tracking-widest">
+              <a href={`/dashboard?lang=${lang === 'zh-Hant' ? 'zh' : 'en'}`} className="block w-full py-2 border border-blue-500/40 rounded text-center text-[10px] text-blue-400 hover:bg-blue-600 hover:text-white transition uppercase font-bold tracking-widest">
                 {isZh ? '完整回測儀錶盤 →' : 'Full Backtest Dashboard →'}
               </a>
             </div>
