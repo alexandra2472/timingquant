@@ -29,7 +29,8 @@ function DashboardContent() {
     return <div className="min-h-screen bg-[#060b14] flex items-center justify-center text-gray-400">Loading...</div>
   }
   
-  const src = lang === 'en' ? '/dashboard-en.html' : '/dashboard.html'
+  const CACHE_VERSION = '?v=2'
+  const src = lang === 'en' ? `/dashboard-en.html${CACHE_VERSION}` : `/dashboard.html${CACHE_VERSION}`
   
   return (
     <div className="min-h-screen bg-[#060b14]">
