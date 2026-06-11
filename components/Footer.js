@@ -27,9 +27,16 @@ export default function Footer() {
           : 'Add a layer of intelligent state identification to your existing process, rather than replacing it. 30-45 day Shadow Evaluation available for qualified institutions.'
         }
       </p>
-      <button className="bg-blue-600 hover:bg-blue-500 text-white px-10 py-4 rounded-full text-sm font-semibold transition shadow-lg shadow-blue-500/20 uppercase tracking-widest">
+      <button
+        onClick={() => window.dispatchEvent(new Event('open-contact-modal'))}
+        className="bg-blue-600 hover:bg-blue-500 text-white px-10 py-4 rounded-full text-sm font-semibold transition shadow-lg shadow-blue-500/20 uppercase tracking-widest"
+      >
         {isZh ? '申請 Access 入口' : 'Request Access'}
       </button>
+      <p className="mt-6 text-gray-500 text-sm">
+        {isZh ? '聯繫郵箱：' : 'Email: '}
+        <a href="mailto:info@timingquant.com" className="text-blue-400 hover:text-blue-300 transition">info@timingquant.com</a>
+      </p>
       
       <div className="mt-32 flex flex-col items-center">
         <div className="text-[10px] text-gray-600 space-y-2 max-w-2xl font-light">

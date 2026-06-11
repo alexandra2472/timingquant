@@ -37,9 +37,12 @@ export default function Navbar() {
         <button onClick={toggleLang} className="px-3 py-1 border border-white/20 rounded text-xs hover:border-white/40 transition">
           {isZh ? 'EN' : '中文'}
         </button>
-        <a href="#contact" className="px-5 py-2 bg-white text-black text-sm font-semibold rounded-full hover:bg-gray-200 transition">
+        <button
+          onClick={() => window.dispatchEvent(new Event('open-contact-modal'))}
+          className="px-5 py-2 bg-white text-black text-sm font-semibold rounded-full hover:bg-gray-200 transition"
+        >
           {isZh ? 'Shadow Evaluation 申請' : 'Shadow Evaluation Access'}
-        </a>
+        </button>
       </div>
     </nav>
   )
